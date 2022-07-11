@@ -1,0 +1,19 @@
+{
+  "name": "web-todo-6",
+  "version": "0.0.1",
+  "description": "2주차 6조(전별,이형준)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woowa-techcamp-2022/web-todo-6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woowa-techcamp-2022/web-todo-6/issues"
+  },
+  "homepage": "https://github.com/woowa-techcamp-2022/web-todo-6#readme"
+}
