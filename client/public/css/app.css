@@ -184,7 +184,7 @@ todo-header todo-header-title {
   font-weight: 600;
 }
 todo-header todo-header-menu {
-  background: url("/public/icon/menu.png") no-repeat;
+  background: url("../icon/menu.png") no-repeat;
   width: 1rem;
   height: 1rem;
   cursor: pointer;
@@ -241,7 +241,7 @@ todo-aside todo-aside-close-icon {
   height: 1rem;
   right: 1rem;
   top: 1rem;
-  background: url("/public/icon/close.png");
+  background: url("../icon/close.png");
   background-size: 1rem;
   background-size: 1rem;
 }
