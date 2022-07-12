@@ -1,0 +1,12 @@
+todo-aside {
+  height: 100vh;
+  position: fixed;
+  right: -100%;
+  width: 30%;
+  background-color: blue;
+  transition: 0.5s linear;
+
+  @include mobile {
+    width: 100%;
+  }
+}
