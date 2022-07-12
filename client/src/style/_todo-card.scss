@@ -1,0 +1,12 @@
+todo-card {
+  &.normal {
+    color: aqua;
+    background-color: red;
+  }
+  &.create {
+    background-color: blue;
+  }
+  &.update {
+    background-color: green;
+  }
+}
