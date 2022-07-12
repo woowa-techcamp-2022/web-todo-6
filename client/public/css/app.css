@@ -221,17 +221,19 @@ todo-section {
   }
 }
 
+todo-card {
+  background-color: #ffffff;
+}
+todo-card .todo-card-content {
+  width: 100%;
+  background-color: antiquewhite;
+}
 todo-card.normal {
   color: aqua;
-  background-color: red;
-}
-todo-card.create {
-  background-color: blue;
 }
 todo-card.update {
   background-color: green;
 }
-
 todo-aside {
   height: 100vh;
   position: fixed;

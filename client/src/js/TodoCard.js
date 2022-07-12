@@ -25,8 +25,10 @@ export class TodoCard extends HTMLElement{
   
 
     connectedCallback(){
+        this.render();
         const state = this.getAttribute('state')
         this.updateState(state)
+
        
     }
 
@@ -39,5 +41,24 @@ export class TodoCard extends HTMLElement{
         if(map.hasOwnProperty(state)){
             map[state](this)
         }
+    }
+
+    render(){
+        /* 이부분 제외, requst 해서 태그를 넘기는 걸로 하자  */
+        const $title = document.createElement('h3')
+        const $content = document.createElement('div')
+        const $author = document.createElement('span')
+
+        $title.innerHTML = this.getAttribute('title')
+        $title.className = "todo-card-title"
+        $content.innerHTML = this.getAttribute('content')
+        $content.className = "todo-card-content"
+        $author.innerHTML = this.getAttribute('author')
+        $author.className = "todo-card-author"
+
+        this.appendChild($title)
+        this.appendChild($content)
+        this.appendChild($author)
+
     }
 }

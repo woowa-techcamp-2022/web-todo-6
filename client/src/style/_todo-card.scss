@@ -1,12 +1,27 @@
 todo-card {
+  background-color: $color-white;
+  .todo-card-content {
+    width: 100%;
+    background-color: antiquewhite;
+  }
+  .todo-card-title {
+  }
+  .todo-card-author {
+  }
   &.normal {
     color: aqua;
-    background-color: red;
   }
   &.create {
-    background-color: blue;
   }
   &.update {
     background-color: green;
+  }
+  &.remains {
+  }
+  &.focus {
+  }
+  &.update {
+  }
+  &.delete {
   }
 }
