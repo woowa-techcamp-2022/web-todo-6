@@ -212,7 +212,7 @@ todo-container {
 }
 
 todo-section {
-  background-color: yellow;
+  background-color: transparent;
   min-width: 25%;
   margin-right: 2rem;
   min-height: 20rem;
@@ -225,6 +225,38 @@ todo-section {
   }
 }
 
+todo-section-header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+todo-section-header todo-section-header-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  display: block;
+}
+todo-section-header todo-section-header-count {
+  margin-left: 1rem;
+  display: block;
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: #999;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  border-radius: 50%;
+}
+todo-section-header todo-section-header-add-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 2rem;
+  margin-left: auto;
+}
+
 todo-aside {
   height: 100vh;
   max-height: 100vh;
@@ -234,7 +266,7 @@ todo-aside {
   background-color: white;
   transition: 0.5s ease;
   padding: 3rem 1.2rem;
-  border-left: 1px solid #eee;
+  border-left: 2px solid #eee;
 }
 @media (max-width: 37.5rem) {
   todo-aside {
@@ -254,17 +286,18 @@ todo-aside todo-aside-close-icon {
 }
 todo-aside todo-log {
   display: flex;
-  background-color: #eee;
   width: 100%;
   padding: 1rem 1rem;
   margin-bottom: 1rem;
-  border-radius: 6px;
 }
 todo-aside todo-log:last-child {
   margin-bottom: 0;
 }
 todo-aside todo-log todo-log-icon-box {
-  margin-right: 0.5rem;
+  margin-right: 1.2rem;
+}
+todo-aside todo-log todo-log-icon-box todo-log-icon {
+  font-size: 2rem;
 }
 todo-aside todo-log todo-log-time {
   display: block;
