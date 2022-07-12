@@ -257,6 +257,19 @@ todo-section-header todo-section-header-add-icon {
   margin-left: auto;
 }
 
+todo-card {
+  background-color: #ffffff;
+}
+todo-card .todo-card-content {
+  width: 100%;
+  background-color: antiquewhite;
+}
+todo-card.normal {
+  color: aqua;
+}
+todo-card.update {
+  background-color: green;
+}
 todo-aside {
   height: 100vh;
   max-height: 100vh;
