@@ -226,13 +226,24 @@ todo-aside {
   position: fixed;
   right: -100%;
   width: 30%;
-  background-color: blue;
+  background-color: white;
   transition: 0.5s ease;
 }
 @media (max-width: 37.5rem) {
   todo-aside {
     width: 100%;
   }
+}
+todo-aside todo-aside-close-icon {
+  cursor: pointer;
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  right: 1rem;
+  top: 1rem;
+  background: url("/public/icon/close.png");
+  background-size: 1rem;
+  background-size: 1rem;
 }
 
 /*# sourceMappingURL=app.css.map */
