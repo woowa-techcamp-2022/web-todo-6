@@ -309,6 +309,11 @@ todo-card.active .todo-card-accent-button {
   background-color: #0075de;
   color: #ffffff;
 }
+todo-card.active .todo-card-accent-button:disabled,
+todo-card.active .todo-card-accent-button[disabled] {
+  background-color: #86c6fe;
+  color: #ffffff;
+}
 todo-card.delete {
   background-color: #ffeeec;
   border: 1px solid #ff4343;
@@ -321,17 +326,6 @@ todo-card.drag {
 todo-card.place {
   border: 1px solid #86c6fe;
   background-color: #ffffff;
-}
-todo-card.deactivate {
-  border: 1px solid #86c6fe;
-}
-todo-card.deactivate .todo-card-cencel-button {
-  background-color: #e9e9e9;
-  color: #999;
-}
-todo-card.deactivate .todo-card-accent-button {
-  background-color: #86c6fe;
-  color: #ffffff;
 }
 
 todo-aside {

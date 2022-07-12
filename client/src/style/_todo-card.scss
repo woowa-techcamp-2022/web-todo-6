@@ -49,6 +49,11 @@ todo-card {
       background-color: $color-blue;
       color: $color-white;
     }
+    .todo-card-accent-button:disabled,
+    .todo-card-accent-button[disabled] {
+      background-color: $color-blue-light;
+      color: $color-white;
+    }
   }
   &.delete {
     background-color: $color-red-light;
@@ -62,16 +67,5 @@ todo-card {
   &.place {
     border: 1px solid $color-blue-light;
     background-color: $color-white;
-  }
-  &.deactivate {
-    border: 1px solid $color-blue-light;
-    .todo-card-cencel-button {
-      background-color: $color-gray;
-      color: $color-gray-dark;
-    }
-    .todo-card-accent-button {
-      background-color: $color-blue-light;
-      color: $color-white;
-    }
   }
 }

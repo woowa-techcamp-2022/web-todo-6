@@ -24,12 +24,7 @@ export class TodoCard extends HTMLElement{
         place : ($el) => {
             $el.className = "place"
             this.render()
-        },
-        deactivate : ($el) => { 
-            $el.className = "deactivate"
-            this.render()
-            this.renderButton()
-        },
+        }
     }
   
 
@@ -67,6 +62,7 @@ export class TodoCard extends HTMLElement{
 
     }
 
+
     renderButton(){
         const $todoCardBottom = document.createElement('todo-card-Bottom')
         const $todoCardCencelButton = document.createElement('button')
@@ -80,10 +76,13 @@ export class TodoCard extends HTMLElement{
   
         $todoCardBottom.appendChild($todoCardCencelButton)
         $todoCardBottom.appendChild($todoCardAccentButton)
-
+ 
         this.appendChild($todoCardBottom)
-    }
 
+        this.checkAccentButtonDisabled();
+        
+    }
+    
     renderInputCard(){
         this.innerHTML = ""
         const $todoCardTitleInput = document.createElement('input')
@@ -95,9 +94,24 @@ export class TodoCard extends HTMLElement{
         $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
         $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
      
+        $todoCardTitleInput.addEventListener('input',this.checkAccentButtonDisabled)
+        $todoCardContentInput.addEventListener('keyup',this.checkAccentButtonDisabled)
+
         this.appendChild($todoCardTitleInput)
-        this.appendChild($todoCardContentInput )
+        this.appendChild($todoCardContentInput)
      
+    }
+
+    checkAccentButtonDisabled(){
+        const $todoCardTitle = document.querySelector('.todo-card-title-input')
+        const $todoCardContent = document.querySelector('.todo-card-content-input')
+        const $todoCardAccentButton = document.querySelector('.todo-card-accent-button')
+
+        if($todoCardTitle.value.length > 0 && $todoCardContent.value.length > 0){
+            $todoCardAccentButton.disabled = false
+        }else{
+            $todoCardAccentButton.disabled  = true
+        }
     }
 
     renderDeleteIcon(){
