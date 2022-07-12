@@ -192,7 +192,7 @@ todo-header todo-header-menu {
 
 todo-container {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 0 1.2rem;
   display: flex;
   justify-content: flex-start;
@@ -201,7 +201,7 @@ todo-container {
 }
 @media (max-width: 37.5rem) {
   todo-container {
-    width: calc(100% - 2.4rem);
+    width: 100%;
     flex-direction: column;
     align-items: center;
   }
@@ -212,6 +212,13 @@ todo-section {
   min-width: 25%;
   margin-right: 2rem;
   min-height: 20rem;
+}
+@media (max-width: 37.5rem) {
+  todo-section {
+    min-width: 100%;
+    margin-bottom: 1rem;
+    margin-right: 0;
+  }
 }
 
 todo-aside {
