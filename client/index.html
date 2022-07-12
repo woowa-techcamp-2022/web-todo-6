@@ -5,10 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./public/css/app.css" />
+    <script defer src="./public/js/bundle.js"></script>
     <title>Todo</title>
   </head>
   <body>
-    <h1>pr test</h1>
-    <script src="./public/js/bundle.js"></script>
+    <main>
+      <todo-header>
+        <todo-header-title> TO-DO-LIST </todo-header-title>
+        <todo-header-menu>=</todo-header-menu>
+      </todo-header>
+      <todo-container>
+        <todo-section>
+          <todo-section-header> 할일 </todo-section-header>
+          <todo-card> 출석체크 </todo-card>
+        </todo-section>
+        <todo-section>
+          <todo-section-header> 하고 있는 일 </todo-section-header>
+          <todo-card> 프로젝트 </todo-card>
+        </todo-section>
+        <todo-section>
+          <todo-section-header> 완료한 일 </todo-section-header>
+          <todo-card> 스크럼 </todo-card>
+        </todo-section>
+      </todo-container>
+      <todo-aside>
+        <todo-log> 할일이 추가되었습니다. </todo-log>
+      </todo-aside>
+    </main>
   </body>
 </html>

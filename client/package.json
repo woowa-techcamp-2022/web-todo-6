@@ -14,7 +14,7 @@
   "scripts": {
     "serve": "serve -s",
     "build": "webpack --config webpack.config.js --watch",
-    "build:sass": "sass --watch src/style/main.scss public/css/app.css",
+    "build:sass": "sass --watch src/style/app.scss public/css/app.css",
     "dev": "npm run serve & npm run build & npm run build:sass"
   },
   "author": "",
