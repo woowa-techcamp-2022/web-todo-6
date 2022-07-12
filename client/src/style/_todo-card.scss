@@ -1,27 +1,77 @@
 todo-card {
-  background-color: $color-white;
-  .todo-card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.2rem;
+  margin-bottom: 0.5rem;
+  input {
+    border: none;
+  }
+  textarea {
+    border: none;
+    resize: none;
+  }
+  .title {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .content {
+    margin-top: 0.4rem;
     width: 100%;
-    background-color: antiquewhite;
+    font-size: 0.6rem;
   }
-  .todo-card-title {
+  .bottom {
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    button {
+      height: 1.8rem;
+      width: 48%;
+      border-radius: 5px;
+    }
   }
-  .todo-card-author {
+
+  &.default {
+    color: todo-gray;
+    border: 1px solid $color-gray;
+    background-color: $color-white;
   }
-  &.normal {
-    color: aqua;
-  }
-  &.create {
-  }
-  &.update {
-    background-color: green;
-  }
-  &.remains {
-  }
-  &.focus {
-  }
-  &.update {
+  &.active {
+    color: todo-gray;
+    border: 1px solid $color-gray;
+    background-color: $color-white;
+    .cencel-button {
+      background-color: $color-gray;
+      color: $color-gray-dark;
+    }
+    .accent-button {
+      background-color: $color-blue;
+      color: $color-white;
+    }
   }
   &.delete {
+    background-color: $color-red-light;
+    border: 1px solid $color-red;
+  }
+  &.drag {
+    border: 1px solid $color-gray;
+    background-color: $color-gray-light;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem $color-gray-dark;
+  }
+  &.place {
+    border: 1px solid $color-blue-light;
+    background-color: $color-white;
+  }
+  &.deactivate {
+    border: 1px solid $color-blue-light;
+    .cencel-button {
+      background-color: $color-gray;
+      color: $color-gray-dark;
+    }
+    .accent-button {
+      background-color: $color-blue-light;
+      color: $color-white;
+    }
   }
 }

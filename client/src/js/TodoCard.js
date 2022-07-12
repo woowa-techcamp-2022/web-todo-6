@@ -3,29 +3,38 @@ export class TodoCard extends HTMLElement{
     static get observedAttributes() { return ['state']; }
 
     map = {
-        normal : ($el) => { 
-            $el.className = "normal"
+        default : ($el) => { 
+            $el.className = "default"
+            this.render()
         },
-        create : ($el) => { 
-            $el.className = "create"
-        },
-        remains : ($el) => {
-            $el.className = "remains"
-        },
-        focus : ($el) => { 
-            $el.className = "focus"
-        },
-        update : ($el) => { 
-            $el.className = "update"
+        active : ($el) => { 
+            $el.className = "active"
+            this.renderInputCard()
+            this.renderButton()
+     
         },
         delete : ($el) => {
             $el.className = "delete"
-        }
+            this.render()
+        },
+        drag : ($el) => {
+            $el.className = "drag"
+            this.render()
+        },
+        place : ($el) => {
+            $el.className = "place"
+            this.render()
+        },
+        deactivate : ($el) => { 
+            $el.className = "deactivate"
+            this.render()
+            this.renderButton()
+        },
     }
   
 
     connectedCallback(){
-        this.render();
+        //this.render();
         const state = this.getAttribute('state')
         this.updateState(state)
 
@@ -44,21 +53,46 @@ export class TodoCard extends HTMLElement{
     }
 
     render(){
-        /* 이부분 제외, requst 해서 태그를 넘기는 걸로 하자  */
-        const $title = document.createElement('h3')
+        this.innerHTML = ""
+        const $title = document.createElement('h2')
         const $content = document.createElement('div')
-        const $author = document.createElement('span')
 
-        $title.innerHTML = this.getAttribute('title')
-        $title.className = "todo-card-title"
+        $title.innerHTML = this.getAttribute('title') 
+        $title.className = "title"
         $content.innerHTML = this.getAttribute('content')
-        $content.className = "todo-card-content"
-        $author.innerHTML = this.getAttribute('author')
-        $author.className = "todo-card-author"
+        $content.className = "content"
 
         this.appendChild($title)
         this.appendChild($content)
-        this.appendChild($author)
 
+    }
+
+    renderButton(){
+        const $bottom = document.createElement('div')
+        $bottom.className  = 'bottom'
+        const $cencelButton = document.createElement('button')
+        $cencelButton.innerHTML = '취소'
+        $cencelButton.className = 'cencel-button'
+        const $accentButton = document.createElement('button')
+        $accentButton.innerHTML = '등록'
+        $accentButton.className = 'accent-button'
+
+        $bottom.appendChild($cencelButton)
+        $bottom.appendChild($accentButton)
+        this.appendChild($bottom)
+    }
+
+    renderInputCard(){
+        this.innerHTML = ""
+        const $titleInput = document.createElement('input')
+        $titleInput.setAttribute('placeholder','제목을 입력해주세요')
+        $titleInput.className = "title"
+        const $contentInput = document.createElement('textarea')
+        $contentInput.className = 'content-input content'
+        $contentInput.setAttribute('placeholder','내용을 입력해주세요')
+    
+        this.appendChild($titleInput)
+        this.appendChild($contentInput)
+     
     }
 }
