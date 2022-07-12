@@ -4,23 +4,16 @@ todo-card {
   flex-direction: column;
   border-radius: 0.2rem;
   margin-bottom: 0.5rem;
-  input {
-    border: none;
-  }
-  textarea {
-    border: none;
-    resize: none;
-  }
-  .title {
+  todo-card-title {
     font-size: 0.9rem;
     font-weight: 700;
   }
-  .content {
+  todo-card-content {
     margin-top: 0.4rem;
     width: 100%;
     font-size: 0.6rem;
   }
-  .bottom {
+  todo-card-bottom {
     margin-top: 0.2rem;
     display: flex;
     justify-content: center;
@@ -30,6 +23,13 @@ todo-card {
       width: 48%;
       border-radius: 5px;
     }
+  }
+  .todo-card-title-input {
+    border: none;
+  }
+  .todo-card-content-input {
+    border: none;
+    resize: none;
   }
 
   &.default {
@@ -41,11 +41,11 @@ todo-card {
     color: todo-gray;
     border: 1px solid $color-gray;
     background-color: $color-white;
-    .cencel-button {
+    .todo-card-cencel-button {
       background-color: $color-gray;
       color: $color-gray-dark;
     }
-    .accent-button {
+    .todo-card-accent-button {
       background-color: $color-blue;
       color: $color-white;
     }
@@ -65,11 +65,11 @@ todo-card {
   }
   &.deactivate {
     border: 1px solid $color-blue-light;
-    .cencel-button {
+    .todo-card-cencel-button {
       background-color: $color-gray;
       color: $color-gray-dark;
     }
-    .accent-button {
+    .todo-card-accent-button {
       background-color: $color-blue-light;
       color: $color-white;
     }

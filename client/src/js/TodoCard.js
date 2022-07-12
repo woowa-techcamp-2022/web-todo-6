@@ -34,7 +34,6 @@ export class TodoCard extends HTMLElement{
   
 
     connectedCallback(){
-        //this.render();
         const state = this.getAttribute('state')
         this.updateState(state)
 
@@ -54,45 +53,56 @@ export class TodoCard extends HTMLElement{
 
     render(){
         this.innerHTML = ""
-        const $title = document.createElement('h2')
-        const $content = document.createElement('div')
+        const $todoCardTitle = document.createElement('todo-card-title')
+        const $todoCardContent = document.createElement('todo-card-content')
 
-        $title.innerHTML = this.getAttribute('title') 
-        $title.className = "title"
-        $content.innerHTML = this.getAttribute('content')
-        $content.className = "content"
+        $todoCardTitle.className = 'todo-card-title'
+        $todoCardContent.className = 'todo-card-content'
 
-        this.appendChild($title)
-        this.appendChild($content)
+        $todoCardTitle.innerHTML = this.getAttribute('title') 
+        $todoCardContent.innerHTML = this.getAttribute('content')
+ 
+        this.appendChild($todoCardTitle)
+        this.appendChild($todoCardContent)
 
     }
 
     renderButton(){
-        const $bottom = document.createElement('div')
-        $bottom.className  = 'bottom'
-        const $cencelButton = document.createElement('button')
-        $cencelButton.innerHTML = '취소'
-        $cencelButton.className = 'cencel-button'
-        const $accentButton = document.createElement('button')
-        $accentButton.innerHTML = '등록'
-        $accentButton.className = 'accent-button'
+        const $todoCardBottom = document.createElement('todo-card-Bottom')
+        const $todoCardCencelButton = document.createElement('button')
+        const $todoCardAccentButton = document.createElement('button')
 
-        $bottom.appendChild($cencelButton)
-        $bottom.appendChild($accentButton)
-        this.appendChild($bottom)
+        $todoCardCencelButton.className = 'todo-card-cencel-button'
+        $todoCardAccentButton.className = 'todo-card-accent-button'
+
+        $todoCardCencelButton.innerHTML = '취소'
+        $todoCardAccentButton.innerHTML = '등록'
+  
+        $todoCardBottom.appendChild($todoCardCencelButton)
+        $todoCardBottom.appendChild($todoCardAccentButton)
+
+        this.appendChild($todoCardBottom)
     }
 
     renderInputCard(){
         this.innerHTML = ""
-        const $titleInput = document.createElement('input')
-        $titleInput.setAttribute('placeholder','제목을 입력해주세요')
-        $titleInput.className = "title"
-        const $contentInput = document.createElement('textarea')
-        $contentInput.className = 'content-input content'
-        $contentInput.setAttribute('placeholder','내용을 입력해주세요')
-    
-        this.appendChild($titleInput)
-        this.appendChild($contentInput)
+        const $todoCardTitleInput = document.createElement('input')
+        const $todoCardContentInput = document.createElement('textarea')
+
+        $todoCardTitleInput.setAttribute('placeholder','제목을 입력해주세요')
+        $todoCardContentInput .setAttribute('placeholder','내용을 입력해주세요')
+
+        $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
+        $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
+     
+        this.appendChild($todoCardTitleInput)
+        this.appendChild($todoCardContentInput )
      
     }
+
+    renderDeleteIcon(){
+        const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
+    }
+   
 }
+

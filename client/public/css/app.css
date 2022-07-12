@@ -264,32 +264,32 @@ todo-card {
   border-radius: 0.2rem;
   margin-bottom: 0.5rem;
 }
-todo-card input {
-  border: none;
-}
-todo-card textarea {
-  border: none;
-  resize: none;
-}
-todo-card .title {
+todo-card todo-card-title {
   font-size: 0.9rem;
   font-weight: 700;
 }
-todo-card .content {
+todo-card todo-card-content {
   margin-top: 0.4rem;
   width: 100%;
   font-size: 0.6rem;
 }
-todo-card .bottom {
+todo-card todo-card-bottom {
   margin-top: 0.2rem;
   display: flex;
   justify-content: center;
   justify-content: space-between;
 }
-todo-card .bottom button {
+todo-card todo-card-bottom button {
   height: 1.8rem;
   width: 48%;
   border-radius: 5px;
+}
+todo-card .todo-card-title-input {
+  border: none;
+}
+todo-card .todo-card-content-input {
+  border: none;
+  resize: none;
 }
 todo-card.default {
   color: todo-gray;
@@ -301,11 +301,11 @@ todo-card.active {
   border: 1px solid #e9e9e9;
   background-color: #ffffff;
 }
-todo-card.active .cencel-button {
+todo-card.active .todo-card-cencel-button {
   background-color: #e9e9e9;
   color: #999;
 }
-todo-card.active .accent-button {
+todo-card.active .todo-card-accent-button {
   background-color: #0075de;
   color: #ffffff;
 }
@@ -325,11 +325,11 @@ todo-card.place {
 todo-card.deactivate {
   border: 1px solid #86c6fe;
 }
-todo-card.deactivate .cencel-button {
+todo-card.deactivate .todo-card-cencel-button {
   background-color: #e9e9e9;
   color: #999;
 }
-todo-card.deactivate .accent-button {
+todo-card.deactivate .todo-card-accent-button {
   background-color: #86c6fe;
   color: #ffffff;
 }
