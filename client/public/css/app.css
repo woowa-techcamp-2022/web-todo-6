@@ -220,7 +220,7 @@ todo-aside {
   right: -100%;
   width: 30%;
   background-color: blue;
-  transition: 0.5s linear;
+  transition: 0.5s ease;
 }
 @media (max-width: 37.5rem) {
   todo-aside {
