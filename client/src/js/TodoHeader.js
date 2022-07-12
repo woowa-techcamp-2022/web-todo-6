@@ -4,7 +4,7 @@ export class TodoHeader extends HTMLElement{
     }
 
     connectedCallback(){
-        console.log('todoheader')
+        
     }
 }
 
@@ -15,7 +15,7 @@ export class TodoHeaderMenu extends HTMLElement{
 
     connectedCallback(){
         this.addEventListener('click',this.onClick)
-        console.log(this)
+        
     }
 
     onClick(){
@@ -24,7 +24,6 @@ export class TodoHeaderMenu extends HTMLElement{
     }
     connectWithTodoAside($el){
         this.$aside = $el
-        console.log('k',this.$aside)
     }
 }
 
@@ -34,6 +33,5 @@ export class TodoHeaderTitle extends HTMLElement{
     }
 
     connectedCallback(){
-        console.log('todo-t')
     }
 }

@@ -1,2 +1,35 @@
 todo-section-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+
+
+    todo-section-header-title {
+        font-size: 1.125rem;
+        font-weight: bold;
+        display: block;
+    }
+
+    todo-section-header-count {
+        margin-left: 1rem;
+        display: block;
+        width: 1.3rem;
+        height: 1.3rem;
+        background-color: $color-gray-dark;
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        border-radius: 50%;
+    }
+
+    todo-section-header-add-icon {
+        width: 1.2rem;
+        height: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color:$color-gray-dark;
+        font-size: 2rem;
+        margin-left: auto;
+    }
 }
