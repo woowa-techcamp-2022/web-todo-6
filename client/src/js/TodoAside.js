@@ -5,11 +5,20 @@ class TodoAside extends HTMLElement{
 
     connectedCallback(){
         this.connectWithTodoHeaderMenu();
+        window.addEventListener('click', this.handleBackgroundTouchEvent.bind(this))
     }
     connectWithTodoHeaderMenu(){
         const $todoHeaderMenu = document.querySelector('todo-header-menu');
         $todoHeaderMenu.connectWithTodoAside(this);
+        this.$todoHeaderMenu = $todoHeaderMenu;
     }
+
+    handleBackgroundTouchEvent(evt) {
+        if(this.contains(evt.target) === false && this.$todoHeaderMenu.contains(evt.target) === false) {
+            this.close()
+        } 
+    }
+
     open(){
         this.style.right = '0%';
     }
