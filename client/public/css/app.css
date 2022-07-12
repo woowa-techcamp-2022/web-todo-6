@@ -157,6 +157,10 @@ button {
   scrollbar-width: none; /* Firefox */
 }
 
+.point {
+  font-weight: bold;
+}
+
 /**
  *  1rem : 16px.
  */
@@ -223,11 +227,14 @@ todo-section {
 
 todo-aside {
   height: 100vh;
+  max-height: 100vh;
   position: fixed;
   right: -100%;
   width: 30%;
   background-color: white;
   transition: 0.5s ease;
+  padding: 3rem 1.2rem;
+  border-left: 1px solid #eee;
 }
 @media (max-width: 37.5rem) {
   todo-aside {
@@ -244,6 +251,26 @@ todo-aside todo-aside-close-icon {
   background: url("../icon/close.png");
   background-size: 1rem;
   background-size: 1rem;
+}
+todo-aside todo-log {
+  display: flex;
+  background-color: #eee;
+  width: 100%;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+todo-aside todo-log:last-child {
+  margin-bottom: 0;
+}
+todo-aside todo-log todo-log-icon-box {
+  margin-right: 0.5rem;
+}
+todo-aside todo-log todo-log-time {
+  display: block;
+  margin-top: 0.4rem;
+  color: #999;
+  font-size: 90%;
 }
 
 /*# sourceMappingURL=app.css.map */
