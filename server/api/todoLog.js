@@ -6,9 +6,7 @@ const { getTodoLogs } = require('../repo/todoLogRepo')
 
 router.get('/', (req, res) => {
     getTodoLogs().then(logs => {
-        res.status(200).type('json').send(JSON.stringify({
-            logs
-        }))
+        res.status(200).json(logs);
     })
 });
 
