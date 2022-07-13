@@ -10,9 +10,11 @@ router.get('/', (req, res) => {
     })
 })
 router.patch('/:id', (req, res) => {
-    const { todoIds , title} = req.body
+    const { todoCardIds , title} = req.body
+    const updateData =  { todoCardIds , title}
     const id = req.params.id
-    updateTodoSection(id,todoIds,title).then( () => {
+    if( !id || ( !todoCardIds && !title )) return;
+    updateTodoSection(id,updateData).then( () => {
         res.status(200).json({message:'ok'});
     })
 })

@@ -9,14 +9,16 @@ function getTodoSections() {
         ORDER BY id ASC
     `)
 }
-function updateTodoSection(id, todoCardIds, title) {
-    if( !id || ( !todoCardIds && !title )) return;
+function updateTodoSection(id, updateData) {
+    
+    const updateKey = Object.keys(updateData)
+    const setTemplate = updateKey.map( (key,index) => { return `${index !== 0 ? ',' : ''} ${key} = "${updateData[key]}"`}).join('')
+
     return query(`
     UPDATE
         TodoSection
     SET
-        ${todoCardIds ? `todoCardIds = ${todoCardIds}` : ''} 
-        ${ title ? `title = ${title}` : ''}
+        ${setTemplate} 
     }    
     WHERE
         id = ${id}
