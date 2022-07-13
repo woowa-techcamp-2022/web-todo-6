@@ -4,7 +4,6 @@ class TodoSection extends HTMLElement {
     }
     
     connectedCallback(){
-        console.log('TodoSection')   
     }
 }
 
