@@ -20,16 +20,16 @@ function insertTodo(title, contents, todoSectionId) {
     `)
 }
 
-function updateTodo( id ,title, contents , todoSectionId) {
-    if( !id || ( !todoCardIds && !title && !todoSectionId)) return;
+function updateTodo( id , updateData) {
+  
+    const updateKey = Object.keys(updateData)
+    const setTemplate = updateKey.map( (key,index) => { return `${index !== 0 ? ',' : ''} ${key} = "${updateData[key]}"`}).join('')
+
     return query(`
     UPDATE
         TodoCard
     SET
-        ${ title ? `title = "${title}"` : ''} 
-        ${ contents ? `contents = "${contents}"` : ''}
-        ${ todoSectionId ? `todoSectionId = ${todoSectionId}` : ''}
-    }    
+        ${setTemplate} 
     WHERE
         id = ${parseInt(id)}
     `)

@@ -15,11 +15,22 @@ router.post('/', async (req, res) => {
 })
 
 
-
 router.patch('/:id', (req, res) => {
-    const { title, contents, sectionId } = req.body;
+    const { title, contents} = req.body;
+    const updateData = { title, contents}
     const { id } = req.params;
-    updateTodo( id, title, contents, sectionId ).then( todo => {
+    if( !id || (  !title && !contents )) return;
+    updateTodo( id, updateData ).then( todo => {
+        res.status(200).json(todo)
+    })
+    
+})
+router.patch('/:id/move', (req, res) => {
+    const { todoSectionId } = req.body;
+    const updateData = { todoSectionId }
+    const { id } = req.params;
+    if( !id || ! todoSectionId ) return;
+    updateTodo( id, updateData ).then( todo => {
         res.status(200).json(todo)
     })
     
