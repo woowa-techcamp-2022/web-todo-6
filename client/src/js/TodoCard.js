@@ -2,7 +2,7 @@ export class TodoCard extends HTMLElement{
 
     static get observedAttributes() { return ['state']; }
 
-    map = {
+    todoStateMapper = {
         default : ($el) => { 
             $el.className = "default"
             this.render()
@@ -36,9 +36,9 @@ export class TodoCard extends HTMLElement{
       }
 
     updateState(state){ 
-        const map = this.map;
-        if(map.hasOwnProperty(state)){
-            map[state](this)
+        const todoStateMapper = this.todoStateMapper;
+        if(todoStateMapper.hasOwnProperty(state)){
+            todoStateMapper[state](this)
         }
   
     }
@@ -63,20 +63,20 @@ export class TodoCard extends HTMLElement{
     renderButton(){
         const $todoCardBottom = document.createElement('todo-card-Bottom')
         const $todoCardCencelButton = document.createElement('button')
-        const $todoCardAccentButton = document.createElement('button')
+        const $todoCardRegisterButton = document.createElement('button')
 
         $todoCardCencelButton.className = 'todo-card-cencel-button'
-        $todoCardAccentButton.className = 'todo-card-accent-button'
+        $todoCardRegisterButton.className = 'todo-card-register-button'
 
         $todoCardCencelButton.innerHTML = '취소'
-        $todoCardAccentButton.innerHTML = '등록'
+        $todoCardRegisterButton.innerHTML = '등록'
   
         $todoCardBottom.appendChild($todoCardCencelButton)
-        $todoCardBottom.appendChild($todoCardAccentButton)
+        $todoCardBottom.appendChild($todoCardRegisterButton)
  
         this.appendChild($todoCardBottom)
 
-        this.checkAccentButtonDisabled();
+        this.checkRegisterButtonDisabled();
         
     }
     
@@ -91,23 +91,23 @@ export class TodoCard extends HTMLElement{
         $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
         $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
      
-        $todoCardTitleInput.addEventListener('input',this.checkAccentButtonDisabled)
-        $todoCardContentInput.addEventListener('keyup',this.checkAccentButtonDisabled)
+        $todoCardTitleInput.addEventListener('input',this.checkRegisterButtonDisabled)
+        $todoCardContentInput.addEventListener('keyup',this.checkRegisterButtonDisabled)
 
         this.appendChild($todoCardTitleInput)
         this.appendChild($todoCardContentInput)
      
     }
 
-    checkAccentButtonDisabled(){
+    checkRegisterButtonDisabled(){
         const $todoCardTitle = document.querySelector('.todo-card-title-input')
         const $todoCardContent = document.querySelector('.todo-card-content-input')
-        const $todoCardAccentButton = document.querySelector('.todo-card-accent-button')
+        const $todoCardRegisterButton = document.querySelector('.todo-card-register-button')
 
         if($todoCardTitle.value.length > 0 && $todoCardContent.value.length > 0){
-            $todoCardAccentButton.disabled = false
+            $todoCardRegisterButton.disabled = false
         }else{
-            $todoCardAccentButton.disabled  = true
+            $todoCardRegisterButton.disabled  = true
         }
     }
 
