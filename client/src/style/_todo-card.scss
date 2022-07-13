@@ -5,6 +5,7 @@ todo-card {
   border-radius: 0.2rem;
   margin-bottom: 0.5rem;
   position: relative;
+
   todo-card-title {
     font-size: 0.9rem;
     font-weight: 700;
@@ -70,12 +71,15 @@ todo-card {
     border: 1px solid $color-red;
   }
   &.drag {
+    position: absolute;
+    border: 1px solid $color-blue-light;
+    background-color: $color-white;
+  }
+  &.place {
     border: 1px solid $color-gray;
     background-color: $color-gray-light;
     box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem $color-gray-dark;
-  }
-  &.place {
-    border: 1px solid $color-blue-light;
-    background-color: $color-white;
+    top: 4px;
+    left: 4px;
   }
 }
