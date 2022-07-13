@@ -7,7 +7,7 @@ export class TodoCard extends HTMLElement{
             $el.className = "default"
             $el.render()
             $el.renderDeleteIcon();
-            $el.addEventListener('mousedown',this.handleDefaultCardClickEvent.bind(this))
+            $el.addEventListener('mousedown', this.handleDefaultCardClickEvent.bind(this))
         },
         active : ($el) => { 
             $el.className = "active"
@@ -58,9 +58,6 @@ export class TodoCard extends HTMLElement{
             todoStateMapper[state](this)
         }
 
-        const x = this.getAttribute('x')
-        const y = this.getAttribute('y')
-  
     }
 
     render(){
@@ -152,9 +149,6 @@ export class TodoCard extends HTMLElement{
     }
 
     handleDefaultCardClickEvent(e){
-       // console.log(this.getAttribute('state'))
-      //  this.setAttribute('state','place')
-       // console.log(this.getAttribute('state'))
 
         this.copy(e)
     }
@@ -179,6 +173,7 @@ export class TodoCard extends HTMLElement{
         $newTodoCard.style.height = `${height}px`;
 
         this.$main.handleAppendChild(  $newTodoCard , this )
+
   
     }
 
