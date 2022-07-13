@@ -51,6 +51,8 @@ export class TodoMain extends HTMLElement{
         this.$dragTodoCard = $dragTodoCard
         this.$placeTodoCard= $placeTodoCard
         this.$placeTodoCard.setAttribute('state','place')
+        $dragTodoCard.style.pointerEvents = 'none'
+        $dragTodoCard.style.opacity = '0.7'
         this.appendChild($dragTodoCard)
     }
     handleDestroy(){ 
