@@ -1,10 +1,12 @@
 todo-section {
   background-color: transparent;
   min-width: 25%;
+  width: 25%;
   margin-right: 2rem;
   min-height: 20rem;
   @include mobile {
     min-width: 100%;
+    width: 100%;
     margin-bottom: 1rem;
     margin-right: 0;
   }

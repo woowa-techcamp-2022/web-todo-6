@@ -214,12 +214,14 @@ todo-container {
 todo-section {
   background-color: transparent;
   min-width: 25%;
+  width: 25%;
   margin-right: 2rem;
   min-height: 20rem;
 }
 @media (max-width: 37.5rem) {
   todo-section {
     min-width: 100%;
+    width: 100%;
     margin-bottom: 1rem;
     margin-right: 0;
   }
