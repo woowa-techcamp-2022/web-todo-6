@@ -22,9 +22,9 @@ class TodoSection extends HTMLElement {
         this.handlePointerLeave()
     }
 
-    handlePointerEnter() {
-        console.log('enter')
+    handlePointerEnter = () => {
         const $blueline = document.createElement('blue-line')
+
         $blueline.setAttribute('width', this.width);
         $blueline.setAttribute('left', this.left);
         
@@ -32,7 +32,7 @@ class TodoSection extends HTMLElement {
         this.$blueline = $blueline;
     }
 
-    handlePointerMove(evt) {
+    handlePointerMove = (evt) => {
         const THROTTLE_TIME = 100;
         const currentTime = new Date().valueOf();
         
@@ -74,7 +74,7 @@ class TodoSection extends HTMLElement {
 
     }
 
-    handlePointerLeave() {
+    handlePointerLeave = () => {
         if(this.$blueline && this.contains(this.$blueline)) {
             this.removeChild(this.$blueline)
         }
