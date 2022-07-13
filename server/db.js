@@ -34,6 +34,8 @@ function query(queryString) {
     return new Promise((resolve, reject) => {
         pool.query(queryString, (_, res) => {
             resolve(res);
+        }, (err) => {
+            reject(err)
         })  
     })
 }
