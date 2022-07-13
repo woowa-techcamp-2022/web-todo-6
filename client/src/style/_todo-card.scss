@@ -13,7 +13,6 @@ todo-card {
     margin-top: 0.4rem;
     width: 100%;
     font-size: 0.6rem;
-    
   }
   todo-card-bottom {
     margin-top: 0.2rem;
@@ -56,12 +55,12 @@ todo-card {
       background-color: $color-gray;
       color: $color-gray-dark;
     }
-    .todo-card-accent-button {
+    .todo-card-register-button {
       background-color: $color-blue;
       color: $color-white;
     }
-    .todo-card-accent-button:disabled,
-    .todo-card-accent-button[disabled] {
+    .todo-card-register-button:disabled,
+    .todo-card-register-button[disabled] {
       background-color: $color-blue-light;
       color: $color-white;
     }
