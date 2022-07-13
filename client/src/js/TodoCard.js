@@ -31,8 +31,7 @@ export class TodoCard extends HTMLElement{
     connectedCallback(){
         const state = this.getAttribute('state')
         this.updateState(state)
-
-       
+        
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -44,6 +43,7 @@ export class TodoCard extends HTMLElement{
         if(map.hasOwnProperty(state)){
             map[state](this)
         }
+        this.renderDeleteIcon();
     }
 
     render(){
@@ -116,7 +116,9 @@ export class TodoCard extends HTMLElement{
 
     renderDeleteIcon(){
         const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
+        $todoCardDeleteIcon.innerHTML= "X"
+        this.appendChild($todoCardDeleteIcon)
     }
-   
+  
 }
 

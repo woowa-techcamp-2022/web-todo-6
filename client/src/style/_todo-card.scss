@@ -4,6 +4,7 @@ todo-card {
   flex-direction: column;
   border-radius: 0.2rem;
   margin-bottom: 0.5rem;
+  position: relative;
   todo-card-title {
     font-size: 0.9rem;
     font-weight: 700;
@@ -23,6 +24,14 @@ todo-card {
       width: 48%;
       border-radius: 5px;
     }
+  }
+  todo-card-delete-icon {
+    position: absolute;
+    color: $color-gray-dark;
+    font-size: 0.7rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    display: inline;
   }
   .todo-card-title-input {
     border: none;
