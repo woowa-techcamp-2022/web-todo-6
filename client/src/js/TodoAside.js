@@ -14,7 +14,8 @@ class TodoAside extends HTMLElement{
     }
 
     handleBackgroundTouchEvent(evt) {
-        if(this.contains(evt.target) === false && this.$todoHeaderMenu.contains(evt.target) === false) {
+        const backgroundClicked = this.contains(evt.target) === false && this.$todoHeaderMenu.contains(evt.target) === false;
+        if(backgroundClicked) {
             this.close()
         } 
     }
