@@ -1,6 +1,6 @@
 import { TodoAside,TodoAsideCloseIcon, TodoLog } from './TodoAside.js' 
 import { TodoHeader, TodoHeaderTitle, TodoHeaderMenu } from './TodoHeader.js' 
-import { TodoSection, TodoSectionHeader } from './TodoSection.js'
+import { TodoSection, TodoSectionHeader, BlueLine } from './TodoSection.js'
 import { TodoCard } from './TodoCard.js'
 import { TodoMain } from './TodoMain.js'
 
@@ -18,3 +18,4 @@ customElements.define('todo-log', TodoLog)
 customElements.define('todo-section', TodoSection)
 customElements.define('todo-section-header', TodoSectionHeader)
 customElements.define('todo-card', TodoCard)
+customElements.define('blue-line', BlueLine)
