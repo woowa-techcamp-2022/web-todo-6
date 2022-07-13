@@ -214,12 +214,14 @@ todo-container {
 todo-section {
   background-color: transparent;
   min-width: 25%;
+  width: 25%;
   margin-right: 2rem;
   min-height: 20rem;
 }
 @media (max-width: 37.5rem) {
   todo-section {
     min-width: 100%;
+    width: 100%;
     margin-bottom: 1rem;
     margin-right: 0;
   }
@@ -258,18 +260,86 @@ todo-section-header todo-section-header-add-icon {
 }
 
 todo-card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.2rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+todo-card todo-card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+todo-card todo-card-content {
+  margin-top: 0.4rem;
+  width: 100%;
+  font-size: 0.6rem;
+}
+todo-card todo-card-bottom {
+  margin-top: 0.2rem;
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+}
+todo-card todo-card-bottom button {
+  height: 1.8rem;
+  width: 48%;
+  border-radius: 5px;
+}
+todo-card todo-card-delete-icon {
+  cursor: pointer;
+  position: absolute;
+  color: #999;
+  font-size: 0.7rem;
+  right: 0.5rem;
+  top: 0.5rem;
+  display: inline;
+}
+todo-card .todo-card-title-input {
+  border: none;
+}
+todo-card .todo-card-content-input {
+  border: none;
+  resize: none;
+}
+todo-card.default {
+  color: todo-gray;
+  border: 1px solid #e9e9e9;
   background-color: #ffffff;
 }
-todo-card .todo-card-content {
-  width: 100%;
-  background-color: antiquewhite;
+todo-card.active {
+  color: todo-gray;
+  border: 1px solid #e9e9e9;
+  background-color: #ffffff;
 }
-todo-card.normal {
-  color: aqua;
+todo-card.active .todo-card-cencel-button {
+  background-color: #e9e9e9;
+  color: #999;
 }
-todo-card.update {
-  background-color: green;
+todo-card.active .todo-card-accent-button {
+  background-color: #0075de;
+  color: #ffffff;
 }
+todo-card.active .todo-card-accent-button:disabled,
+todo-card.active .todo-card-accent-button[disabled] {
+  background-color: #86c6fe;
+  color: #ffffff;
+}
+todo-card.delete {
+  background-color: #ffeeec;
+  border: 1px solid #ff4343;
+}
+todo-card.drag {
+  border: 1px solid #e9e9e9;
+  background-color: #eee;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #999;
+}
+todo-card.place {
+  border: 1px solid #86c6fe;
+  background-color: #ffffff;
+}
+
 todo-aside {
   height: 100vh;
   max-height: 100vh;

@@ -3,33 +3,32 @@ export class TodoCard extends HTMLElement{
     static get observedAttributes() { return ['state']; }
 
     map = {
-        normal : ($el) => { 
-            $el.className = "normal"
+        default : ($el) => { 
+            $el.className = "default"
+            this.render()
+            this.renderDeleteIcon();
         },
-        create : ($el) => { 
-            $el.className = "create"
+        active : ($el) => { 
+            $el.className = "active"
+            this.renderInputCard()
+            this.renderButton()
+     
         },
-        remains : ($el) => {
-            $el.className = "remains"
+        drag : ($el) => {
+            $el.className = "drag"
+            this.render()
         },
-        focus : ($el) => { 
-            $el.className = "focus"
-        },
-        update : ($el) => { 
-            $el.className = "update"
-        },
-        delete : ($el) => {
-            $el.className = "delete"
+        place : ($el) => {
+            $el.className = "place"
+            this.render()
         }
     }
   
 
     connectedCallback(){
-        this.render();
         const state = this.getAttribute('state')
         this.updateState(state)
-
-       
+        
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -41,24 +40,92 @@ export class TodoCard extends HTMLElement{
         if(map.hasOwnProperty(state)){
             map[state](this)
         }
+  
     }
 
     render(){
-        /* 이부분 제외, requst 해서 태그를 넘기는 걸로 하자  */
-        const $title = document.createElement('h3')
-        const $content = document.createElement('div')
-        const $author = document.createElement('span')
+        this.innerHTML = ""
+        const $todoCardTitle = document.createElement('todo-card-title')
+        const $todoCardContent = document.createElement('todo-card-content')
 
-        $title.innerHTML = this.getAttribute('title')
-        $title.className = "todo-card-title"
-        $content.innerHTML = this.getAttribute('content')
-        $content.className = "todo-card-content"
-        $author.innerHTML = this.getAttribute('author')
-        $author.className = "todo-card-author"
+        $todoCardTitle.className = 'todo-card-title'
+        $todoCardContent.className = 'todo-card-content'
 
-        this.appendChild($title)
-        this.appendChild($content)
-        this.appendChild($author)
+        $todoCardTitle.innerHTML = this.getAttribute('title') 
+        $todoCardContent.innerHTML = this.getAttribute('content')
+ 
+        this.appendChild($todoCardTitle)
+        this.appendChild($todoCardContent)
 
     }
+
+
+    renderButton(){
+        const $todoCardBottom = document.createElement('todo-card-Bottom')
+        const $todoCardCencelButton = document.createElement('button')
+        const $todoCardAccentButton = document.createElement('button')
+
+        $todoCardCencelButton.className = 'todo-card-cencel-button'
+        $todoCardAccentButton.className = 'todo-card-accent-button'
+
+        $todoCardCencelButton.innerHTML = '취소'
+        $todoCardAccentButton.innerHTML = '등록'
+  
+        $todoCardBottom.appendChild($todoCardCencelButton)
+        $todoCardBottom.appendChild($todoCardAccentButton)
+ 
+        this.appendChild($todoCardBottom)
+
+        this.checkAccentButtonDisabled();
+        
+    }
+    
+    renderInputCard(){
+        this.innerHTML = ""
+        const $todoCardTitleInput = document.createElement('input')
+        const $todoCardContentInput = document.createElement('textarea')
+
+        $todoCardTitleInput.setAttribute('placeholder','제목을 입력해주세요')
+        $todoCardContentInput .setAttribute('placeholder','내용을 입력해주세요')
+
+        $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
+        $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
+     
+        $todoCardTitleInput.addEventListener('input',this.checkAccentButtonDisabled)
+        $todoCardContentInput.addEventListener('keyup',this.checkAccentButtonDisabled)
+
+        this.appendChild($todoCardTitleInput)
+        this.appendChild($todoCardContentInput)
+     
+    }
+
+    checkAccentButtonDisabled(){
+        const $todoCardTitle = document.querySelector('.todo-card-title-input')
+        const $todoCardContent = document.querySelector('.todo-card-content-input')
+        const $todoCardAccentButton = document.querySelector('.todo-card-accent-button')
+
+        if($todoCardTitle.value.length > 0 && $todoCardContent.value.length > 0){
+            $todoCardAccentButton.disabled = false
+        }else{
+            $todoCardAccentButton.disabled  = true
+        }
+    }
+
+    renderDeleteIcon(){
+        const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
+        $todoCardDeleteIcon.innerHTML= "X"
+
+        $todoCardDeleteIcon.addEventListener('mouseover',this.handleDeleteIconMouseOverEvent.bind(this))
+        $todoCardDeleteIcon.addEventListener('mouseout',this.handleDeleteIconMouseOutEvent.bind(this))
+       
+        this.appendChild($todoCardDeleteIcon)
+    }
+   
+    handleDeleteIconMouseOverEvent(){
+        this.className = 'delete'
+    }
+    handleDeleteIconMouseOutEvent(){
+        this.className = 'default'
+    }
 }
+
