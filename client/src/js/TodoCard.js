@@ -6,16 +6,13 @@ export class TodoCard extends HTMLElement{
         default : ($el) => { 
             $el.className = "default"
             this.render()
+            this.renderDeleteIcon();
         },
         active : ($el) => { 
             $el.className = "active"
             this.renderInputCard()
             this.renderButton()
      
-        },
-        delete : ($el) => {
-            $el.className = "delete"
-            this.render()
         },
         drag : ($el) => {
             $el.className = "drag"
@@ -43,7 +40,7 @@ export class TodoCard extends HTMLElement{
         if(map.hasOwnProperty(state)){
             map[state](this)
         }
-        this.renderDeleteIcon();
+  
     }
 
     render(){
@@ -118,13 +115,17 @@ export class TodoCard extends HTMLElement{
         const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
         $todoCardDeleteIcon.innerHTML= "X"
 
-        $todoCardDeleteIcon.addEventListener('click',this.handleDeleteIconClickEvent.bind(this))
+        $todoCardDeleteIcon.addEventListener('mouseover',this.handleDeleteIconMouseOverEvent.bind(this))
+        $todoCardDeleteIcon.addEventListener('mouseout',this.handleDeleteIconMouseOutEvent.bind(this))
+       
         this.appendChild($todoCardDeleteIcon)
     }
    
-    handleDeleteIconClickEvent(){
-        this.setAttribute('state','delete')
-        alert('삭제')
+    handleDeleteIconMouseOverEvent(){
+        this.className = 'delete'
+    }
+    handleDeleteIconMouseOutEvent(){
+        this.className = 'default'
     }
 }
 
