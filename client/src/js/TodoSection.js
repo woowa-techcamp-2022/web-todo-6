@@ -47,11 +47,11 @@ class TodoSection extends HTMLElement {
 
         const mouseY = evt.clientY;
         const windowScrollY = window.scrollY
-        const BLUE_LINE_MARGIN = 10;
+        const BLUE_LINE_MARGIN = 5;
         // this.children[0] is always TODO-SECTION-HEADER.
         // Default bluelineY is TODO-SECTION-HEADER's bottom.
         const $todoSectionHeader = this.children[0];
-        let bluelineY = $todoSectionHeader.offsetTop + $todoSectionHeader.clientHeight + BLUE_LINE_MARGIN - windowScrollY;
+        let bluelineY = $todoSectionHeader.offsetTop + $todoSectionHeader.clientHeight - windowScrollY;
         
         for(let i=0; i<cards.length; i++) {
             const $card = cards[i];
