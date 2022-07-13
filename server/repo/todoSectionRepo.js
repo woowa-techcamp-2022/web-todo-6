@@ -3,26 +3,22 @@ const query = require('../db')
 function getTodoSections() {
     return query(`
     SELECT 
-        idx,
-        title,
-        todos
-    FROM
-        TodoSection
-    ORDER BY idx ASC
+            * 
+    FROM 
+        TodoSection 
+    ORDER BY id ASC
     `)
 }
-
-function updateTodoSectionsOrder(idx, todos) {
+function updateTodoSectionsOrder(id, todoCardIds) {
     return query(`
     UPDATE
         TodoSection
     SET
-        todos = '${todos}'
+        todoIds = '${todoCardIds}'
     WHERE
-        idx = ${idx}
+        id = ${id}
     `)
 }
-
 
 module.exports = {
     getTodoSections,
