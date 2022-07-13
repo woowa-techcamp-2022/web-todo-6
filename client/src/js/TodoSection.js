@@ -15,14 +15,10 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointerenter', this.handlePointerEnter)
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('pointerleave', this.handlePointerLeave)
-        this.addEventListener('pointerdown', this.handlePointerDown)
-    }
-
-    handlePointerDown() {
-        this.handlePointerLeave()
     }
 
     handlePointerEnter = () => {
+        if(this.$blueline) return
         const $blueline = document.createElement('blue-line')
 
         $blueline.setAttribute('width', this.width);
@@ -77,6 +73,7 @@ class TodoSection extends HTMLElement {
     handlePointerLeave = () => {
         if(this.$blueline && this.contains(this.$blueline)) {
             this.removeChild(this.$blueline)
+            this.$blueline = null
         }
     }
 }
