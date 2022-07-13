@@ -2,8 +2,14 @@ const express = require('express')
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+const { getTodoSections } = require('../repo/todoSectionRepo')
 
+router.get('/', (req, res) => {
+    getTodoSections().then(sections => {
+        res.status(200).type('json').send(JSON.stringify({
+            sections
+        }));
+    })
 })
 
 module.exports = router;
