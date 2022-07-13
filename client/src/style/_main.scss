@@ -6,7 +6,7 @@ body {
   background-color: $color-gray-light;
 }
 
-main {
+todo-main {
   @include no-drag;
   width: 100%;
   display: flex;

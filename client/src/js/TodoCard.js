@@ -1,17 +1,21 @@
 export class TodoCard extends HTMLElement{
 
-    static get observedAttributes() { return ['state']; }
+    static get observedAttributes() { return ['state', 'x', 'y']; }
 
     todoStateMapper = {
         default : ($el) => { 
             $el.className = "default"
-            this.render()
-            this.renderDeleteIcon();
+            $el.render()
+            $el.renderDeleteIcon();
+            $el.addEventListener('mousedown', this.handleDefaultCardClickEvent.bind(this))
+            //$el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
+           
         },
         active : ($el) => { 
             $el.className = "active"
             this.renderInputCard()
             this.renderButton()
+            //
      
         },
         drag : ($el) => {
@@ -27,21 +31,46 @@ export class TodoCard extends HTMLElement{
 
     connectedCallback(){
         const state = this.getAttribute('state')
+
         this.updateState(state)
+
+        this.$main = document.querySelector('todo-main')
+
+       // this.destroy()
+       //this.copy()
         
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         if(name === 'state') this.updateState(newValue) 
-      }
+        if(name === 'x' ) this.updateXPositon(newValue)
+        if(name === 'y')  this.updateYPositon(newValue)
+    }
+    updateXPositon(newX){
+    
+        this.style.left = `${newX}px`;
+    }
+
+    updateYPositon(newY){
+        this.style.top = `${newY}px`;
+    }
 
     updateState(state){ 
         const todoStateMapper = this.todoStateMapper;
-        if(todoStateMapper.hasOwnProperty(state)){
+        if( todoStateMapper.hasOwnProperty(state)){
             todoStateMapper[state](this)
         }
-  
     }
+
+    handleCencelButtonClickEvent(){
+        console.log('cencel')
+        this.setAttribute('state','default')
+    }
+
+    // handleTodoCardDblClickEvent(){
+    //     this.setAttribute('state','active')
+    // }
+   
 
     render(){
         this.innerHTML = ""
@@ -71,6 +100,8 @@ export class TodoCard extends HTMLElement{
         $todoCardCencelButton.innerHTML = '취소'
         $todoCardRegisterButton.innerHTML = '등록'
   
+        $todoCardCencelButton.addEventListener('click', this.handleCencelButtonClickEvent.bind(this))
+
         $todoCardBottom.appendChild($todoCardCencelButton)
         $todoCardBottom.appendChild($todoCardRegisterButton)
  
@@ -127,5 +158,37 @@ export class TodoCard extends HTMLElement{
     handleDeleteIconMouseOutEvent(){
         this.className = 'default'
     }
-}
+    destroy(){ 
+        this.$main.handleDestroy(this)
+    }
 
+    handleDefaultCardClickEvent(e){
+
+        this.copy(e)
+    }
+    copy(e){
+
+        const x = this.offsetLeft
+        const y = this.offsetTop
+
+        const width = this.clientWidth;
+        const height = this.clientHeight
+        const title = this.getAttribute('title')
+        const content = this.getAttribute('content')
+        const $newTodoCard = document.createElement('todo-card')
+ 
+        $newTodoCard.setAttribute('state','drag')
+        $newTodoCard.setAttribute('title',title)
+        $newTodoCard.setAttribute('content',content)
+        $newTodoCard.setAttribute('x', x )
+        $newTodoCard.setAttribute('y', y)
+
+        $newTodoCard.style.width  = `${width}px`;
+        $newTodoCard.style.height = `${height}px`;
+
+        this.$main.handleAppendChild(  $newTodoCard , this )
+
+  
+    }
+
+}
