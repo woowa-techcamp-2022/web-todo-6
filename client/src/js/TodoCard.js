@@ -8,11 +8,14 @@ export class TodoCard extends HTMLElement{
             $el.render()
             $el.renderDeleteIcon();
             $el.addEventListener('mousedown', this.handleDefaultCardClickEvent.bind(this))
+            //$el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
+           
         },
         active : ($el) => { 
             $el.className = "active"
             this.renderInputCard()
             this.renderButton()
+            //
      
         },
         drag : ($el) => {
@@ -57,8 +60,17 @@ export class TodoCard extends HTMLElement{
         if( todoStateMapper.hasOwnProperty(state)){
             todoStateMapper[state](this)
         }
-
     }
+
+    handleCencelButtonClickEvent(){
+        console.log('cencel')
+        this.setAttribute('state','default')
+    }
+
+    // handleTodoCardDblClickEvent(){
+    //     this.setAttribute('state','active')
+    // }
+   
 
     render(){
         this.innerHTML = ""
@@ -88,6 +100,8 @@ export class TodoCard extends HTMLElement{
         $todoCardCencelButton.innerHTML = '취소'
         $todoCardRegisterButton.innerHTML = '등록'
   
+        $todoCardCencelButton.addEventListener('click', this.handleCencelButtonClickEvent.bind(this))
+
         $todoCardBottom.appendChild($todoCardCencelButton)
         $todoCardBottom.appendChild($todoCardRegisterButton)
  
