@@ -26,6 +26,7 @@ todo-card {
     }
   }
   todo-card-delete-icon {
+    cursor: pointer;
     position: absolute;
     color: $color-gray-dark;
     font-size: 0.7rem;

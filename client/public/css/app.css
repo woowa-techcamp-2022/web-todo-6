@@ -286,6 +286,7 @@ todo-card todo-card-bottom button {
   border-radius: 5px;
 }
 todo-card todo-card-delete-icon {
+  cursor: pointer;
   position: absolute;
   color: #999;
   font-size: 0.7rem;
