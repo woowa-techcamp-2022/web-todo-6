@@ -117,8 +117,14 @@ export class TodoCard extends HTMLElement{
     renderDeleteIcon(){
         const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
         $todoCardDeleteIcon.innerHTML= "X"
+
+        $todoCardDeleteIcon.addEventListener('click',this.handleDeleteIconClickEvent.bind(this))
         this.appendChild($todoCardDeleteIcon)
     }
-  
+   
+    handleDeleteIconClickEvent(){
+        this.setAttribute('state','delete')
+        alert('삭제')
+    }
 }
 
