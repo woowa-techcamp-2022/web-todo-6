@@ -1,6 +1,6 @@
 const { query }= require('../db')
 
-function getTodos(){
+function getTodo(){
     return query(`
         SELECT * FROM TodoCard;
     `)
@@ -36,14 +36,12 @@ function updateTodo( id , updateData) {
 }
 
 function deleteTodo(id) {
-    if(!id) return;
     return query(`
-        DELETE FROM TodoCard WHERE id = ${id};
+        DELETE FROM TodoCard WHERE id = ${parseInt(id)};
     `)
 }
 
 module.exports = {
-    getTodos,
     getTodosByTodoSectionId,
     insertTodo,
     updateTodo,
