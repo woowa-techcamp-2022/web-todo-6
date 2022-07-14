@@ -94,7 +94,7 @@ class TodoSection extends HTMLElement {
         }
 
         this.$blueline.setAttribute('top', bluelineY)
-        this.$blueline.style.opacity = 1
+        this.$blueline.style.opacity = this.$todoContainer.isDragging ? 1 : 0
 
     }
 

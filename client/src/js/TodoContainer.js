@@ -5,6 +5,10 @@ export class TodoContainer extends HTMLElement{
         super();
     }
 
+    get isDragging() {
+        return this.moveFrom !== null
+    }
+
     connectedCallback(){
         this.moveFrom = null;
         this.moveTo = null;
@@ -40,6 +44,8 @@ export class TodoContainer extends HTMLElement{
             this.$dragTodoCard.style.opacity = 0;
 
             moveFrom.setAttribute('state','default')
+            this.setFrom(null);
+            this.setTo(null);
             return
         }
 
@@ -54,6 +60,8 @@ export class TodoContainer extends HTMLElement{
             this.$dragTodoCard.style.left = `${moveFrom.offsetLeft}px`
             this.$dragTodoCard.style.opacity = 0;
             moveFrom.setAttribute('state','default')
+            this.setFrom(null);
+            this.setTo(null);
             return
         }
 
@@ -75,6 +83,8 @@ export class TodoContainer extends HTMLElement{
         fromTodoSection.removeChild(moveFrom)
         insertAfter(moveFrom, moveTo);
         moveFrom.setAttribute('state','default')
+        this.setFrom(null);
+        this.setTo(null);
     }
     
 }
