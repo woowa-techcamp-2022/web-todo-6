@@ -7,8 +7,8 @@ export class TodoMain extends HTMLElement{
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('mouseup', this.handelMouseUp.bind(this))
         this.addEventListener('mouseleave', this.handelMouseOut.bind(this))
-
     }
+
     handelMouseOut(){
         if(this.dragging){
             this.handleDestroy()
@@ -25,8 +25,7 @@ export class TodoMain extends HTMLElement{
     }
     handlePointerMove(e) {
         if(this.dragging && this.$dragTodoCard) {
-            
-            //console.log(e.movementX, e.movementY)
+        
             const diffX = e.movementX;
             const diffY = e.movementY;
 
@@ -52,6 +51,8 @@ export class TodoMain extends HTMLElement{
         this.$dragTodoCard = $dragTodoCard
         this.$placeTodoCard= $placeTodoCard
         this.$placeTodoCard.setAttribute('state','place')
+        $dragTodoCard.style.pointerEvents = 'none'
+        $dragTodoCard.style.opacity = '0.7'
         this.appendChild($dragTodoCard)
     }
     handleDestroy(){ 

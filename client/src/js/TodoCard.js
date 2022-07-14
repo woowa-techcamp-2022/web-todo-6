@@ -7,7 +7,7 @@ export class TodoCard extends HTMLElement{
             $el.className = "default"
             $el.render()
             $el.renderDeleteIcon();
-            $el.addEventListener('mousedown', this.handleDefaultCardClickEvent.bind(this))
+            $el.addEventListener('pointerdown', this.handleDefaultCardClickEvent.bind(this))
             //$el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
            
         },
@@ -63,7 +63,6 @@ export class TodoCard extends HTMLElement{
     }
 
     handleCencelButtonClickEvent(){
-        console.log('cencel')
         this.setAttribute('state','default')
     }
 
