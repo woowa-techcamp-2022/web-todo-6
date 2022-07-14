@@ -1,4 +1,5 @@
 import { getTodoCard } from "../api/todoCard.js";
+import { getTodoContainer } from "./util.js";
 
 class TodoSection extends HTMLElement {
     constructor() {
@@ -19,6 +20,7 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointerleave', this.handlePointerLeave)
         this.addEventListener('pointerdown', this.handlePointerDown)
         window.addEventListener('scroll', this.handleScroll)
+        this.$todoContainer = getTodoContainer(this);
         this.init();
     }
 
@@ -41,8 +43,7 @@ class TodoSection extends HTMLElement {
     }
     handlePointerEnter = () => {
         if(this.$blueline) return
-        const $blueline = document.createElement('blue-line')
-
+        const $blueline = new BlueLine();
         $blueline.setAttribute('width', this.width);
         $blueline.setAttribute('left', this.left);
         
@@ -75,7 +76,7 @@ class TodoSection extends HTMLElement {
         // Default bluelineY is TODO-SECTION-HEADER's bottom.
         const $todoSectionHeader = this.children[0];
         let bluelineY = $todoSectionHeader.offsetTop + $todoSectionHeader.clientHeight - windowScrollY;
-        
+        this.$todoContainer.setTo($todoSectionHeader);
         for(let i=0; i<cards.length; i++) {
             const $card = cards[i];
             
@@ -84,6 +85,7 @@ class TodoSection extends HTMLElement {
 
             if((bluelineY<mouseY) && ((leftTop < mouseY && mouseY < rightBottom) || (i === cards.length - 1))) {
                 bluelineY = rightBottom + BLUE_LINE_MARGIN;
+                this.$todoContainer.setTo($card);
                 break;
             }
         }

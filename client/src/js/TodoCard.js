@@ -1,3 +1,5 @@
+import { getTodoContainer } from "./util";
+
 export class TodoCard extends HTMLElement{
 
     static get observedAttributes() { return ['state', 'x', 'y']; }
@@ -16,8 +18,6 @@ export class TodoCard extends HTMLElement{
             $el.className = "active"
             this.renderInputCard()
             this.renderButton()
-            //
-     
         },
         drag : ($el) => {
             $el.className = "drag"
@@ -37,9 +37,7 @@ export class TodoCard extends HTMLElement{
         this.$section = this.parentElement
         this.$main = document.querySelector('todo-main')
         this.downTriger = false
-       // this.destroy()
-       //this.copy()
-        
+        this.$todoContainer = getTodoContainer(this); 
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -82,7 +80,6 @@ export class TodoCard extends HTMLElement{
         $todoCardTitle.className = 'todo-card-title'
         $todoCardContent.className = 'todo-card-content'
 
-        console.log(this.getAttribute('title'))
         $todoCardTitle.innerHTML = this.getAttribute('title') ? this.getAttribute('title') : '(비어있음)'
         $todoCardContent.innerHTML = this.getAttribute('content') ? this.getAttribute('content') : '(비어있음)'
  
@@ -185,14 +182,17 @@ export class TodoCard extends HTMLElement{
     handleDefaultCardPointerDownEvent(e){
         this.downTriger = true
         setTimeout( ()=> {
-            if(this.downTriger) this.copy(e)
+            if(this.downTriger) {
+                this.copy(e)
+                this.$todoContainer.setFrom(this);
+            }
         },250);
         
     }
     handleDefaultCardPointerUpEvent(e){
         this.downTriger = false;
     }
-    copy(e){
+    copy(){
 
         const x = this.offsetLeft
         const y = this.offsetTop
