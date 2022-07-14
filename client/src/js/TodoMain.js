@@ -57,6 +57,7 @@ export class TodoMain extends HTMLElement{
     }
     handleDestroy(){ 
         if(this.$dragTodoCard instanceof HTMLElement) {
+            console.log('pop')
             this.$dragTodoCard.addEventListener("transitionend", this.updateTransition.bind(this), true);
             this.$dragTodoCard.style.transition = 'all 0.5s'
             this.$dragTodoCard.style.top = `${this.dragTodoOriginY}px`
