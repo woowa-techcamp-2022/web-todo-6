@@ -15,19 +15,22 @@ router.post('/', async (req, res, next) => {
 
 //여기서 sectionID 검색해도 되긴합니다. 
 router.patch('/:id', (req, res, next) => {
-    const { title, contents } = req.body;
-    const updateData = { title, contents }
+
+    const { title, contents , todoSectionId} = req.body;
+    const updateData = { title, contents, todoSectionId }
     const { id } = req.params;
     if( !id || ( !title && !contents )) return res.status(500).json({'message':'err'});
     updateTodo( id, updateData ).then( result => {
         req.data = result
-        req.logData = { action : "수정", id: id}
+        const action = todoSectionId ? '이동' : '수정'
+        req.logData = { action : action, id: id}
         next();
     })  
 },setLog)
 
 
 router.patch('/:id/move', (req, res, next) => {
+    console.log('ee')
     const { todoSectionId } = req.body;
     const updateData = { todoSectionId }
     const { id } = req.params;
