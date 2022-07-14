@@ -69,7 +69,7 @@ export class TodoContainer extends HTMLElement{
             }
         })
         $animationCard.style.transition = 'all 0.5s'
-        $animationCard.style.top = `${moveTo.offsetTop}px`
+        $animationCard.style.top = `${moveTo.offsetTop + moveTo.clientHeight}px`
         $animationCard.style.left = `${moveTo.offsetLeft}px`
         $animationCard.style.opacity = 0;
         fromTodoSection.removeChild(moveFrom)
