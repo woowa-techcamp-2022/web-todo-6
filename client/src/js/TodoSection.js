@@ -17,6 +17,7 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointerenter', this.handlePointerEnter)
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('pointerleave', this.handlePointerLeave)
+        this.addEventListener('pointerdown', this.handlePointerDown)
         this.init();
     }
 
@@ -87,6 +88,7 @@ class TodoSection extends HTMLElement {
         }
 
         this.$blueline.setAttribute('top', bluelineY)
+        this.$blueline.style.opacity = 1
 
     }
 
@@ -94,6 +96,12 @@ class TodoSection extends HTMLElement {
         if(this.$blueline && this.contains(this.$blueline)) {
             this.removeChild(this.$blueline)
             this.$blueline = null
+        }
+    }
+
+    handlePointerDown = () => {
+        if(this.$blueline) {
+            this.$blueline.style.opacity = 0
         }
     }
 }
