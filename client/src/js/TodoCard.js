@@ -12,7 +12,7 @@ export class TodoCard extends HTMLElement{
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
             $el.addEventListener('pointerup', this.handleDefaultCardPointerUpEvent.bind(this))
             $el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
-           
+            $el.addEventListener('mouseout',this.handleTodoCardMouseOutEvent.bind(this))
         },
         active : ($el) => { 
             $el.className = "active"
@@ -205,8 +205,10 @@ export class TodoCard extends HTMLElement{
         this.downTriger = true
         setTimeout( ()=> {
             if(this.downTriger) this.copy(e)
-        },300);
-        
+        },250);
+    }
+    handleTodoCardMouseOutEvent(e){
+        this.downTriger = false
     }
     handleDefaultCardPointerUpEvent(e){
         this.downTriger = false;

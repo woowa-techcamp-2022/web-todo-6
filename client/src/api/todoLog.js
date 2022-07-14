@@ -7,3 +7,11 @@ export const getTodoLogs = () => {
         })
     })
 }
+
+export const setTodoLogs = () => {
+    return new Promise((resolve, reject) => {
+        request.set('/todo-log').then( newLogs => {
+            return resolve(newLogs)
+        })
+    })
+}
