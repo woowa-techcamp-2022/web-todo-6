@@ -1,30 +1,31 @@
-const query = require('../db')
+const { query }= require('../db')
 
 function getTodoSections() {
     return query(`
-    SELECT 
-        idx,
-        title,
-        todos
-    FROM
-        TodoSection
-    ORDER BY idx ASC
+        SELECT 
+                * 
+        FROM 
+            TodoSection 
+        ORDER BY id ASC
     `)
 }
+function updateTodoSection(id, updateData) {
+    
+    const updateKey = Object.keys(updateData)
+    const setTemplate = updateKey.map( (key,index) => { return `${index !== 0 ? ',' : ''} ${key} = "${updateData[key]}"`}).join('')
 
-function updateTodoSectionsOrder(idx, todos) {
     return query(`
     UPDATE
         TodoSection
     SET
-        todos = '${todos}'
+        ${setTemplate} 
+    }    
     WHERE
-        idx = ${idx}
+        id = ${id}
     `)
 }
 
-
 module.exports = {
     getTodoSections,
-    updateTodoSectionsOrder
+    updateTodoSection
 }
