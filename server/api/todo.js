@@ -19,7 +19,7 @@ router.patch('/:id', (req, res) => {
     if( !id || ( !title && !contents )) return res.status(500).json({'message':'err'});
     updateTodo( id, updateData ).then( todo => {
         console.log(todo)
-            res.status(200).json(todo)
+        res.status(200).json(todo)
     })
     
 })

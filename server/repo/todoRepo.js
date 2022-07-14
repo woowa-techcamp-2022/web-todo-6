@@ -2,7 +2,7 @@ const { query }= require('../db')
 
 function getTodo(){
     return query(`
-        SELECT * FROM TodoCard;
+        SELECT * FROM TodoCard  ORDER BY id DESC; ;
     `)
 }
 function getTodosByTodoSectionId(todoSectionId){
@@ -21,7 +21,8 @@ function insertTodo(title, contents, todoSectionId) {
 }
 
 function updateTodo( id , updateData) {
-  
+    console.log(id)
+    console.log(updateData)
     const updateKey = Object.keys(updateData)
     const setTemplate = updateKey.map( (key,index) => { return `${index !== 0 ? ',' : ''} ${key} = "${updateData[key]}"`}).join('')
 

@@ -22,7 +22,7 @@ const request = {
             ...HEADER,
             method: 'post',
             body: JSON.stringify(body)
-        }).then(res => res.json())
+        }).then(res => res.json() )
     },
 
     /**
