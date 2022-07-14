@@ -186,7 +186,7 @@ export class TodoCard extends HTMLElement{
         this.downTriger = true
         setTimeout( ()=> {
             if(this.downTriger) this.copy(e)
-        },200);
+        },250);
         
     }
     handleDefaultCardPointerUpEvent(e){
