@@ -23,5 +23,9 @@ export class TodoContainer extends HTMLElement{
     getTo() {
         return this.moveTo
     }
+
+    move() {
+        console.log(this.moveFrom, this.moveTo)
+    }
     
 }
