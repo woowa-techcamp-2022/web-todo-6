@@ -1,4 +1,3 @@
-import { request } from "../api/config";
 import { getTodoLogs } from "../api/todoLog";
 
 class TodoAside extends HTMLElement{
