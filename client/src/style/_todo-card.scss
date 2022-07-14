@@ -3,7 +3,7 @@ todo-card {
   display: flex;
   flex-direction: column;
   border-radius: 0.2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   position: relative;
   box-sizing: border-box;
   todo-card-title {
@@ -37,10 +37,16 @@ todo-card {
   }
   .todo-card-title-input {
     border: none;
+    &:focus {
+      outline: none;
+    }
   }
   .todo-card-content-input {
     border: none;
     resize: none;
+    &:focus {
+      outline: none;
+    }
   }
 
   &.default {
