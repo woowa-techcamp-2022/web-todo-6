@@ -1,4 +1,5 @@
 import { request } from "../api/config";
+import { getTodoLogs } from "../api/todoLog";
 
 class TodoAside extends HTMLElement{
     constructor(){
@@ -23,7 +24,7 @@ class TodoAside extends HTMLElement{
     }
 
     open(){
-        request.get('/todo-log').then(newLogs => {
+        getTodoLogs().then(newLogs => {
             const oldLogs = Array.from(this.children).filter(item => item.tagName === 'TODO-LOG')
             oldLogs.forEach(log => this.removeChild(log));
             newLogs.forEach(log => this.appendChild(new TodoLog(log.todoTitle, log.action, log.todoSection, new Date(log.timestamp).valueOf())))
