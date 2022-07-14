@@ -270,6 +270,7 @@ todo-card {
   border-radius: 0.2rem;
   margin-bottom: 0.5rem;
   position: relative;
+  box-sizing: border-box;
 }
 todo-card todo-card-title {
   font-size: 0.9rem;
@@ -343,8 +344,6 @@ todo-card.place {
   border: 1px solid #e9e9e9;
   background-color: #eee;
   box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #999;
-  top: 4px;
-  left: 4px;
 }
 
 todo-aside {
