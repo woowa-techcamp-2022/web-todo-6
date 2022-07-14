@@ -37,6 +37,8 @@ class TodoSection extends HTMLElement {
                     $todoCard.setAttribute('title', title)
                     $todoCard.setAttribute('content', contents)
                     $todoCard.setAttribute('id', id)
+                    $todoCard.setAttribute('todoCardId', id)
+                    
                     this.appendChild($todoCard)
                 }
             });

@@ -1,12 +1,21 @@
+import { getSections } from "../api/todoSection.js";
+import { TodoSection} from "../js/TodoSection.js"
 export class TodoMain extends HTMLElement{
     constructor(){
         super();
     }
     connectedCallback(){
+        this.init()
         this.dragging = false;
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('pointerup', this.handelMouseUp.bind(this))
         this.addEventListener('pointerleave', this.handelMouseOut.bind(this))
+    }
+
+    init(){
+        getSections().then( (sections) => { 
+            this.$sections = sections
+        })
     }
 
     handelMouseOut(){
