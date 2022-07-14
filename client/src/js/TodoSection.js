@@ -121,6 +121,7 @@ class TodoSectionHeader extends HTMLElement {
 
     connectedCallback() {
         this.mountChildelements()
+        this.$todoSection = this.parentElement
     }
 
 
@@ -139,8 +140,26 @@ class TodoSectionHeader extends HTMLElement {
         this.appendChild($todoSectionHeaderTitle)
         this.appendChild($todoSectionHeaderCount)
         this.appendChild($todoSectionHeaderAddIcon)
+
+        $todoSectionHeaderAddIcon.addEventListener('click', this.addNewTodoCard.bind(this) )
+    }
+
+    addNewTodoCard(){
+        const $todoCard = document.createElement('todo-card')
+        $todoCard.setAttribute('state','active')
+        this.$todoSection.appendChild($todoCard)
+        const todoCard = this.$todoSection.querySelectorAll("todo-card");
+        
+        console.log(todoCard)
+        if(todoCard.length === 0 ){
+            this.$todoSection.appendChild($todoCard)
+        }else{
+            this.$todoSection.insertBefore($todoCard,todoCard[0])
+        }
     }
 }
+
+
 
 
 export { TodoSection, TodoSectionHeader, BlueLine }

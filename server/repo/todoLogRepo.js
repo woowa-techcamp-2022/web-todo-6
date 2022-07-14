@@ -15,11 +15,10 @@ function getTodoLogs() {
 }
 
 
-function setTodoLog(action, todoCardId, todoSctionId ){
+function setTodoLog(action, todoTitle, todoSction ){
     return query (`
-        INSERT INTO TodoLog(action, todoCardId, todoSectionId) VALUES ("${action}", ${todoCardId}, ${todoSctionId});
+        INSERT INTO TodoLog(action, todoTitle, todoSection) VALUES ("${action}", "${todoTitle}", "${todoSction}");
     `)
-
 }
 
 
