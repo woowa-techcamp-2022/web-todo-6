@@ -27,6 +27,19 @@ function getTodoSection($el) {
 }
 
 /**
+ * @param {HTMLElement} $el
+ */
+function getTodoMain($el) {
+    while($el.tagName !== 'BODY') {
+        if($el.tagName === 'TODO-MAIN') {
+            return $el;
+        }
+
+        $el = $el.parentElement;
+    }
+}
+
+/**
  * @param {HTMLElement} newNode 
  * @param {HTMLElement} existingNode 
  */
@@ -38,4 +51,4 @@ function insertAfter(newNode, existingNode) {
     }
 }
 
-export { getTodoContainer, getTodoSection, insertAfter }
+export { getTodoContainer, getTodoSection, getTodoMain, insertAfter }

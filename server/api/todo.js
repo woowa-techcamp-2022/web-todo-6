@@ -13,8 +13,8 @@ router.post('/', async (req, res) => {
 
 //여기서 sectionID 검색해도 되긴합니다. 
 router.patch('/:id', (req, res) => {
-    const { title, contents } = req.body;
-    const updateData = { title, contents }
+    const { title, contents, todoSectionId } = req.body;
+    const updateData = { title, contents, todoSectionId }
     const { id } = req.params;
     if( !id || ( !title && !contents )) return res.status(500).json({'message':'err'});
     updateTodo( id, updateData ).then( todo => {
