@@ -1,3 +1,5 @@
+import { getTodoCard } from "../api/todoCard.js";
+
 class TodoSection extends HTMLElement {
     constructor() {
         super()
@@ -15,6 +17,22 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointerenter', this.handlePointerEnter)
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('pointerleave', this.handlePointerLeave)
+        this.init();
+    }
+
+    init(){
+        getTodoCard().then( (todoCards) => {
+            todoCards.forEach( todoCard => {
+                const {title, contents, todoSectionId } = todoCard;
+                if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
+                    const $todoCard = document.createElement('todo-card')
+                    $todoCard.setAttribute('state', 'default')
+                    $todoCard.setAttribute('title', title)
+                    $todoCard.setAttribute('content', contents)
+                    this.appendChild($todoCard)
+                }
+            });
+        })
     }
 
     handlePointerEnter = () => {
