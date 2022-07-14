@@ -4,8 +4,19 @@ const router = express.Router();
 
 const { getTodoSections, updateTodoSection } = require('../repo/todoSectionRepo')
 
+const { getTodosByTodoSectionId } = require('../repo/todoRepo')
+
+
 router.get('/', (req, res) => {
     getTodoSections().then(sections => {
+   
+        const returnData = []
+        sections.forEach( section => {
+            const todos = getTodosByTodoSectionId(sections.id).then( todos => {
+                section.todos = todos
+                returnData.push
+            })
+        });
         res.status(200).json(sections);
     })
 })
