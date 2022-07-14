@@ -9,7 +9,7 @@ export class TodoCard extends HTMLElement{
             $el.renderDeleteIcon();
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
             $el.addEventListener('pointerup', this.handleDefaultCardPointerUpEvent.bind(this))
-            //$el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
+            $el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
            
         },
         active : ($el) => { 
@@ -69,9 +69,9 @@ export class TodoCard extends HTMLElement{
         e.preventDefault();
     }
 
-    // handleTodoCardDblClickEvent(){
-    //     this.setAttribute('state','active')
-    // }
+    handleTodoCardDblClickEvent(){
+        this.setAttribute('state','active')
+    }
    
 
     render(){
@@ -132,6 +132,9 @@ export class TodoCard extends HTMLElement{
 
         $todoCardTitleInput.setAttribute('placeholder','제목을 입력해주세요')
         $todoCardContentInput .setAttribute('placeholder','내용을 입력해주세요')
+
+        $todoCardTitleInput.value = this.getAttribute('title') 
+        $todoCardContentInput.value = this.getAttribute('content') 
 
         $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
         $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
