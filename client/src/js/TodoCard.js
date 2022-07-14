@@ -1,4 +1,4 @@
-import { postTodoCard, deleteTodoCard } from "../api/todoCard";
+import { postTodoCard, deleteTodoCard, updateTodoCard } from "../api/todoCard";
 
 export class TodoCard extends HTMLElement{
 
@@ -119,15 +119,24 @@ export class TodoCard extends HTMLElement{
     handleRegisterButtonClickEvent(){
 
         const titleValue = this.querySelector('.todo-card-title-input').value
-     
         const contentValue = this.querySelector('.todo-card-content-input').value
         const todoSectionId  = parseInt(this.$section.getAttribute('sectionId'))
-        postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
-            if(result.affectedRows != 1 )return;
+        //코드 분리 할꺼에요!!
+        let todoCardId = this.getAttribute('todoCardId')
+        if(todoCardId){
+            updateTodoCard( parseInt(todoCardId),{ title:titleValue, contents:contentValue }).then(()=>{
+                if(result.affectedRows != 1 )return;
                 this.setAttribute('title', titleValue)
                 this.setAttribute('content' ,contentValue)
                 this.setAttribute('state','default')
-        })
+            })
+        }else{}
+            postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
+                if(result.affectedRows != 1 )return;
+                this.setAttribute('title', titleValue)
+                this.setAttribute('content' ,contentValue)
+                this.setAttribute('state','default')
+            })
     }
 
     renderInputCard(){
@@ -196,7 +205,7 @@ export class TodoCard extends HTMLElement{
         this.downTriger = true
         setTimeout( ()=> {
             if(this.downTriger) this.copy(e)
-        },200);
+        },300);
         
     }
     handleDefaultCardPointerUpEvent(e){
