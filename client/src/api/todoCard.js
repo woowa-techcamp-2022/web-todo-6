@@ -20,8 +20,8 @@ export const postTodoCard = (title, contents,todoSectionId ) => {
 
 export const deleteTodoCard = (id) => {
     return new Promise((resolve, reject) => {
-        request.delete(`/todo/${id}`).then( todoCard => {
-            return resolve(todoCard)
+        request.delete(`/todo/${id}`).then( result => {
+            return resolve( result )
         })
     })
 }
@@ -30,8 +30,8 @@ export const deleteTodoCard = (id) => {
 
 export const updateTodoCard = ( id, updateData ) => {
     return new Promise((resolve, reject) => {
-        request.patch(`/todo/${id}`,{updateData} ).then( todoCard => {
-            return resolve(todoCard)
+        request.patch(`/todo/${id}`,updateData ).then( result => {
+            return resolve(result)
         })
     })
 }
