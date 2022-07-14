@@ -17,7 +17,9 @@ export class TodoMain extends HTMLElement{
             if(this.$sections) {
                 resolve(this.$sections);
             }
-            resolve(this.sections);
+            setTimeout(() => {
+                resolve(this.sections);
+            }, 50)
         })
     }
 
