@@ -12,6 +12,17 @@ export class TodoMain extends HTMLElement{
         this.addEventListener('pointerleave', this.handelMouseOut.bind(this))
     }
 
+    get sections() {
+        return new Promise((resolve) => {
+            if(this.$sections) {
+                resolve(this.$sections);
+            }
+            setTimeout(() => {
+                resolve(this.sections);
+            }, 50)
+        })
+    }
+
     init(){
         getSections().then( (sections) => { 
             this.$sections = sections

@@ -1,5 +1,6 @@
 import { getTodoCard } from "../api/todoCard.js";
-import { getTodoContainer } from "./util.js";
+import { getTodoContainer, getTodoMain } from "./util.js";
+import { TodoCard } from './TodoCard.js'
 
 class TodoSection extends HTMLElement {
     constructor() {
@@ -21,6 +22,7 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointerdown', this.handlePointerDown)
         window.addEventListener('scroll', this.handleScroll)
         this.$todoContainer = getTodoContainer(this);
+        this.$todoMain = getTodoMain(this);
         this.init();
     }
 
@@ -29,6 +31,7 @@ class TodoSection extends HTMLElement {
     }
     handleGetTodoCard(){
         getTodoCard().then( (todoCards) => {
+            const cards = [];
             todoCards.forEach( todoCard => {
                 const { id, title, contents, todoSectionId } = todoCard;
                 if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
@@ -39,9 +42,20 @@ class TodoSection extends HTMLElement {
                     $todoCard.setAttribute('id', id)
                     $todoCard.setAttribute('todoCardId', id)
                     
-                    this.appendChild($todoCard)
+                    cards.push($todoCard)
                 }
             });
+
+            this.$todoMain.sections.then(sections => {
+                const cardIds = sections.find(section => section.id === +this.getAttribute('sectionId')).todoCardIds
+                const ordered = cards.sort((a, b) => {
+                    const aIdIdx = cardIds.indexOf(a.getAttribute('id'));
+                    const bIdIdx = cardIds.indexOf(b.getAttribute('id'));
+
+                    return aIdIdx - bIdIdx
+                })
+                ordered.forEach(card => this.appendChild(card))    
+            })
         })
     }
     handlePointerEnter = () => {
@@ -117,6 +131,21 @@ class TodoSection extends HTMLElement {
             this.$blueline.style.opacity = 0
         }
     }
+
+    getTodoCardList() {
+        const list = [];
+
+        for(let i=0; i<this.children.length; i++) {
+            const child = this.children[i];
+
+            if(child instanceof TodoCard) {
+                const id = child.getAttribute('id')
+                if(id) list.push(id)
+            }
+        }
+
+        return list.join(',')
+    }
 }
 
 class BlueLine extends HTMLElement {
@@ -191,7 +220,6 @@ class TodoSectionHeader extends HTMLElement {
         this.$todoSection.appendChild($todoCard)
         const todoCard = this.$todoSection.querySelectorAll("todo-card");
         
-        console.log(todoCard)
         if(todoCard.length === 0 ){
             this.$todoSection.appendChild($todoCard)
         }else{

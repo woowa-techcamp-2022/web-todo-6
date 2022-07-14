@@ -7,3 +7,7 @@ export const getSections = () => {
         })
     })
 }
+
+export const updateSection = (id, data) => {
+    return request.patch(`/todo-section/${id}`, data)
+}
