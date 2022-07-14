@@ -193,7 +193,11 @@ export class TodoCard extends HTMLElement{
         this.downTriger = false;
     }
     copy(){
+        const $newTodoCard = this.copySelf();
+        this.$main.handleAppendChild(  $newTodoCard , this )
+    }
 
+    copySelf() {
         const x = this.offsetLeft
         const y = this.offsetTop
 
@@ -212,9 +216,7 @@ export class TodoCard extends HTMLElement{
         $newTodoCard.style.width  = `${width}px`;
         $newTodoCard.style.height = `${height}px`;
 
-        this.$main.handleAppendChild(  $newTodoCard , this )
-
-  
+        return $newTodoCard;
     }
 
 }

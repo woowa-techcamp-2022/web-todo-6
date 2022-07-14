@@ -57,26 +57,16 @@ export class TodoMain extends HTMLElement{
     }
     handleDestroy(){ 
         if(this.$dragTodoCard instanceof HTMLElement) {
-
             const $todoContainer = document.querySelector('todo-container')
-            
-            console.log($todoContainer.move())
-
-            this.$dragTodoCard.addEventListener("transitionend", this.updateTransition.bind(this), true);
-            this.$dragTodoCard.style.transition = 'all 0.5s'
-            this.$dragTodoCard.style.top = `${this.dragTodoOriginY}px`
-            this.$dragTodoCard.style.left = `${this.dragTodoOriginX}px`
-            this.$dragTodoCard.style.opacity = 0;
-        }
-        if(this.$placeTodoCard instanceof HTMLElement){
-            this.$placeTodoCard.setAttribute('state','default')
-            this.$placeTodoCard = null
+            $todoContainer.setDragTodoCard(this.$dragTodoCard);
+            $todoContainer.setUpdateTransition(this.updateTransition.bind(this));
+            $todoContainer.pop()   
         }
     }
     updateTransition(){
         if(this.$dragTodoCard instanceof HTMLElement){
-       this.removeChild(this.$dragTodoCard)
-       this.$dragTodoCard = null
+            this.removeChild(this.$dragTodoCard)
+            this.$dragTodoCard = null
         }
     }
 }

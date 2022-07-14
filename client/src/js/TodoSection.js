@@ -100,6 +100,7 @@ class TodoSection extends HTMLElement {
         if(this.$blueline && this.contains(this.$blueline)) {
             this.removeChild(this.$blueline)
             this.$blueline = null
+            this.$todoContainer.setTo(null)
         }
     }
 
