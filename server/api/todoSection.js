@@ -9,14 +9,6 @@ const { getTodosByTodoSectionId } = require('../repo/todoRepo')
 
 router.get('/', (req, res) => {
     getTodoSections().then(sections => {
-   
-        const returnData = []
-        sections.forEach( section => {
-            const todos = getTodosByTodoSectionId(sections.id).then( todos => {
-                section.todos = todos
-                returnData.push
-            })
-        });
         res.status(200).json(sections);
     })
 })
@@ -25,8 +17,8 @@ router.patch('/:id', (req, res) => {
     const updateData =  { todoCardIds , title}
     const id = req.params.id
     if( !id || ( !todoCardIds && !title )) return;
-    updateTodoSection(id,updateData).then( () => {
-        res.status(200).json({message:'ok'});
+    updateTodoSection(id,updateData).then( (todoSection) => {
+        res.status(200).json(todoSection);
     })
 })
 

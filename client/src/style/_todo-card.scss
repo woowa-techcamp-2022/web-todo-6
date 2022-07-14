@@ -3,9 +3,9 @@ todo-card {
   display: flex;
   flex-direction: column;
   border-radius: 0.2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   position: relative;
-
+  box-sizing: border-box;
   todo-card-title {
     font-size: 0.9rem;
     font-weight: 700;
@@ -37,10 +37,16 @@ todo-card {
   }
   .todo-card-title-input {
     border: none;
+    &:focus {
+      outline: none;
+    }
   }
   .todo-card-content-input {
     border: none;
     resize: none;
+    &:focus {
+      outline: none;
+    }
   }
 
   &.default {
@@ -79,7 +85,5 @@ todo-card {
     border: 1px solid $color-gray;
     background-color: $color-gray-light;
     box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem $color-gray-dark;
-    top: 4px;
-    left: 4px;
   }
 }

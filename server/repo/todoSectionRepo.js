@@ -19,7 +19,6 @@ function updateTodoSection(id, updateData) {
         TodoSection
     SET
         ${setTemplate} 
-    }    
     WHERE
         id = ${id}
     `)
