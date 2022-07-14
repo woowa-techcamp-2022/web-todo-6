@@ -2,7 +2,7 @@ const { query }= require('../db')
 
 function getTodo(){
     return query(`
-        SELECT * FROM TodoCard;
+        SELECT * FROM TodoCard  ORDER BY id DESC; ;
     `)
 }
 function getTodosByTodoSectionId(todoSectionId){
