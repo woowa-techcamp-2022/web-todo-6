@@ -2,7 +2,15 @@ const { query }= require('../db')
 
 function getTodoLogs() {
     return query(`
-    SELECT * FROM TodoLog
+    SELECT 
+        id,
+        action,
+        todoTitle,
+        todoSection,
+        timestamp
+    FROM 
+        TodoLog
+    ORDER BY TodoLog.id DESC   
     `)
 }
 
