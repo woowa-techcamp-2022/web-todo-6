@@ -3,19 +3,14 @@ const { query }= require('../db')
 function getTodoLogs() {
     return query(`
     SELECT 
-        TodoLog.id as id,
+        id,
         action,
-        tds.title as todoSectionTitle,
-        tdc.title as todoCardTitle
+        todoTitle,
+        todoSection,
+        timestamp
     FROM 
         TodoLog
-    LEFT JOIN 
-        (SELECT id, title FROM TodoSection) as tds
-         ON tds.id = TodoLog.todoSectionId
-    LEFT JOIN 
-        (SELECT id, title FROM TodoCard) as tdc
-         ON tdc.id = TodoLog.todoCardId
-    ORDER BY TodoLog.id DESC    
+    ORDER BY TodoLog.id DESC   
     `)
 }
 

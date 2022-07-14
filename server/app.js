@@ -1,10 +1,10 @@
 const express = require("express");
 const apiRouter = require('./api')
-const cookieParser = require('cookie-parser');
+const cors = require('cors')
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.status(200).send(`
@@ -19,4 +19,4 @@ app.get("/", (req, res) => {
 
 app.use('/api', apiRouter)
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3001);

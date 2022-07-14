@@ -1,3 +1,5 @@
+import { request } from "../api/config";
+
 class TodoAside extends HTMLElement{
     constructor(){
         super();
@@ -21,6 +23,12 @@ class TodoAside extends HTMLElement{
     }
 
     open(){
+        request.get('/todo-log').then(newLogs => {
+            const oldLogs = Array.from(this.children).filter(item => item.tagName === 'TODO-LOG')
+            oldLogs.forEach(log => this.removeChild(log));
+            newLogs.forEach(log => this.appendChild(new TodoLog(log.todoTitle, log.action, log.todoSection, new Date(log.timestamp).valueOf())))
+
+        })
         this.style.right = '0%';
     }
     close(){
@@ -43,8 +51,19 @@ class TodoAsideCloseIcon extends HTMLElement{
 }
 
 class TodoLog extends HTMLElement {
-    constructor() {
+    /**
+     * 
+     * @param {string} contents 
+     * @param {string} action 
+     * @param {string} target 
+     * @param {string} timestamp 
+     */
+    constructor(contents, action, target, timestamp) {
         super();
+        this.setAttribute('contents', contents);
+        this.setAttribute('action', action);
+        this.setAttribute('target', target);
+        this.setAttribute('timestamp', timestamp)
     }
 
     connectedCallback() {

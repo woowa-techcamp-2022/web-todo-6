@@ -30,8 +30,6 @@ mysql.createConnection({
 function query(queryString) {
     return new Promise((resolve, reject) => {
         pool.query(queryString, (_, res) => {
-        console.log(res)
-        console.log(_)
              resolve(res);
         }, (err) => {
             reject(err)
