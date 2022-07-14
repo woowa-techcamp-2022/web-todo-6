@@ -21,6 +21,9 @@ class TodoSection extends HTMLElement {
     }
 
     init(){
+        this.handleGetTodoCard()
+    }
+    handleGetTodoCard(){
         getTodoCard().then( (todoCards) => {
             todoCards.forEach( todoCard => {
                 const {title, contents, todoSectionId } = todoCard;
@@ -34,7 +37,6 @@ class TodoSection extends HTMLElement {
             });
         })
     }
-
     handlePointerEnter = () => {
         if(this.$blueline) return
         const $blueline = document.createElement('blue-line')
