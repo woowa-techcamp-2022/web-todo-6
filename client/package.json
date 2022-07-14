@@ -15,9 +15,13 @@
     "serve": "serve -s",
     "build": "webpack --config webpack.config.js --watch",
     "build:sass": "sass --watch src/style/app.scss public/css/app.css",
-    "dev": "npm run serve & npm run build & npm run build:sass"
+    "dev": "npm run serve & npm run build & npm run build:sass",
+    "aws": "node scripts/aws-serve.js & npm run dev"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "dotenv": "^16.0.1"
+  }
 }
