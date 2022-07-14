@@ -33,7 +33,7 @@ const request = {
     patch: (url, body) => {
         return fetch(BASE_URL + url, {
             ...HEADER,
-            method: 'patch',
+            method: 'PATCH',
             body: JSON.stringify(body)
         }).then(res => res.json())
     },

@@ -64,8 +64,11 @@ export class TodoCard extends HTMLElement{
     }
 
     handleCencelButtonClickEvent(e){
-        
-        this.setAttribute('state','default')
+        if(this.hasAttribute('todoCardId')){
+            this.setAttribute('state','default')
+        }else{
+            this.$section.removeChild(this)
+        }
         e.preventDefault();
     }
 
@@ -82,8 +85,8 @@ export class TodoCard extends HTMLElement{
         $todoCardTitle.className = 'todo-card-title'
         $todoCardContent.className = 'todo-card-content'
 
-        $todoCardTitle.innerHTML = this.getAttribute('title') ? this.getAttribute('title') : '(비어있음)'
-        $todoCardContent.innerHTML = this.getAttribute('content') ? this.getAttribute('content') : '(비어있음)'
+        $todoCardTitle.innerHTML = this.getAttribute('title') ? this.getAttribute('title') : ''
+        $todoCardContent.innerHTML = this.getAttribute('content') ? this.getAttribute('content') : ''
  
         this.appendChild($todoCardTitle)
         this.appendChild($todoCardContent)
@@ -100,7 +103,12 @@ export class TodoCard extends HTMLElement{
         $todoCardRegisterButton.className = 'todo-card-register-button'
 
         $todoCardCencelButton.innerHTML = '취소'
-        $todoCardRegisterButton.innerHTML = '등록'
+        const todoCardId = this.getAttribute('todoCardId')
+        if(todoCardId){
+            $todoCardRegisterButton.innerHTML = '수정'
+        }else{
+            $todoCardRegisterButton.innerHTML = '등록'
+        }
   
         $todoCardCencelButton.addEventListener('click', this.handleCencelButtonClickEvent.bind(this))
         $todoCardRegisterButton.addEventListener('click', this.handleRegisterButtonClickEvent.bind(this))
@@ -121,7 +129,7 @@ export class TodoCard extends HTMLElement{
         //코드 분리 할꺼에요!!
         let todoCardId = this.getAttribute('todoCardId')
         if(todoCardId){
-            updateTodoCard( parseInt(todoCardId),{ title:titleValue, contents:contentValue }).then(()=>{
+            updateTodoCard( parseInt(todoCardId),{ title:titleValue, contents:contentValue }).then((result)=>{
                 if(result.affectedRows != 1 )return;
                 this.setAttribute('title', titleValue)
                 this.setAttribute('content' ,contentValue)
@@ -133,6 +141,8 @@ export class TodoCard extends HTMLElement{
               this.setAttribute('title', titleValue)
               this.setAttribute('content' ,contentValue)
               this.setAttribute('state','default')
+              this.setAttribute('id',result.insertId)
+              this.setAttribute('todoCardid',result.insertId)
           })
         }
             
