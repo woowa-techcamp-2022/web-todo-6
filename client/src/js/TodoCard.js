@@ -142,7 +142,7 @@ export class TodoCard extends HTMLElement{
               this.setAttribute('content' ,contentValue)
               this.setAttribute('state','default')
               this.setAttribute('id',result.insertId)
-              this.setAttribute('todoCardid',result.insertId)
+              this.setAttribute('todoCardId',result.insertId)
           })
         }
             
