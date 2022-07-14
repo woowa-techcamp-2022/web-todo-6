@@ -30,12 +30,13 @@ class TodoSection extends HTMLElement {
     handleGetTodoCard(){
         getTodoCard().then( (todoCards) => {
             todoCards.forEach( todoCard => {
-                const {title, contents, todoSectionId } = todoCard;
+                const { id, title, contents, todoSectionId } = todoCard;
                 if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
                     const $todoCard = document.createElement('todo-card')
                     $todoCard.setAttribute('state', 'default')
                     $todoCard.setAttribute('title', title)
                     $todoCard.setAttribute('content', contents)
+                    $todoCard.setAttribute('id', id)
                     this.appendChild($todoCard)
                 }
             });
