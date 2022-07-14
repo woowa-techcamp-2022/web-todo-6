@@ -42,6 +42,7 @@ function deleteTodo(id) {
 }
 
 module.exports = {
+    getTodo,
     getTodosByTodoSectionId,
     insertTodo,
     updateTodo,
