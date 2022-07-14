@@ -47,7 +47,6 @@ class TodoSection extends HTMLElement {
             });
 
             this.$todoMain.sections.then(sections => {
-                console.log(sections)
                 const cardIds = sections.find(section => section.id === +this.getAttribute('sectionId')).todoCardIds
                 const ordered = cards.sort((a, b) => {
                     const aIdIdx = cardIds.indexOf(a.getAttribute('id'));
@@ -221,7 +220,6 @@ class TodoSectionHeader extends HTMLElement {
         this.$todoSection.appendChild($todoCard)
         const todoCard = this.$todoSection.querySelectorAll("todo-card");
         
-        console.log(todoCard)
         if(todoCard.length === 0 ){
             this.$todoSection.appendChild($todoCard)
         }else{
