@@ -7,7 +7,7 @@ class TodoAside extends HTMLElement{
 
     connectedCallback(){
         this.connectWithTodoHeaderMenu();
-        window.addEventListener('click', this.handleBackgroundTouchEvent.bind(this))
+        window.addEventListener('pointerdown', this.handleBackgroundTouchEvent.bind(this))
     }
     connectWithTodoHeaderMenu(){
         const $todoHeaderMenu = document.querySelector('todo-header-menu');

@@ -1,4 +1,6 @@
+import { getTodoContainer } from "./util";
 import { postTodoCard, deleteTodoCard, updateTodoCard } from "../api/todoCard";
+
 
 export class TodoCard extends HTMLElement{
 
@@ -18,8 +20,6 @@ export class TodoCard extends HTMLElement{
             $el.className = "active"
             this.renderInputCard()
             this.renderButton()
-            //
-     
         },
         drag : ($el) => {
             $el.className = "drag"
@@ -39,9 +39,7 @@ export class TodoCard extends HTMLElement{
         this.$section = this.parentElement
         this.$main = document.querySelector('todo-main')
         this.downTriger = false
-       // this.destroy()
-       //this.copy()
-        
+        this.$todoContainer = getTodoContainer(this); 
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -84,7 +82,6 @@ export class TodoCard extends HTMLElement{
         $todoCardTitle.className = 'todo-card-title'
         $todoCardContent.className = 'todo-card-content'
 
-        console.log(this.getAttribute('title'))
         $todoCardTitle.innerHTML = this.getAttribute('title') ? this.getAttribute('title') : '(비어있음)'
         $todoCardContent.innerHTML = this.getAttribute('content') ? this.getAttribute('content') : '(비어있음)'
  
@@ -130,13 +127,15 @@ export class TodoCard extends HTMLElement{
                 this.setAttribute('content' ,contentValue)
                 this.setAttribute('state','default')
             })
-        }else{}
-            postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
-                if(result.affectedRows != 1 )return;
-                this.setAttribute('title', titleValue)
-                this.setAttribute('content' ,contentValue)
-                this.setAttribute('state','default')
-            })
+        }else{
+          postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
+              if(result.affectedRows != 1 )return;
+              this.setAttribute('title', titleValue)
+              this.setAttribute('content' ,contentValue)
+              this.setAttribute('state','default')
+          })
+        }
+            
     }
 
     renderInputCard(){
@@ -204,7 +203,10 @@ export class TodoCard extends HTMLElement{
     handleDefaultCardPointerDownEvent(e){
         this.downTriger = true
         setTimeout( ()=> {
-            if(this.downTriger) this.copy(e)
+            if(this.downTriger) {
+                this.copy(e)
+                this.$todoContainer.setFrom(this);
+            }
         },250);
     }
     handleTodoCardMouseOutEvent(e){
@@ -213,8 +215,12 @@ export class TodoCard extends HTMLElement{
     handleDefaultCardPointerUpEvent(e){
         this.downTriger = false;
     }
-    copy(e){
+    copy(){
+        const $newTodoCard = this.copySelf();
+        this.$main.handleAppendChild(  $newTodoCard , this )
+    }
 
+    copySelf() {
         const x = this.offsetLeft
         const y = this.offsetTop
 
@@ -232,9 +238,7 @@ export class TodoCard extends HTMLElement{
 
         $newTodoCard.style.width  = `${width}px`;
         $newTodoCard.style.height = `${height}px`;
-
-        this.$main.handleAppendChild(  $newTodoCard , this )
-
+        return $newTodoCard;
     }
 
 }

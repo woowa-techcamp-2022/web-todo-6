@@ -1,50 +1,80 @@
+import { getTodoSection, insertAfter } from "./util";
+
 export class TodoContainer extends HTMLElement{
     constructor(){
         super();
     }
 
     connectedCallback(){
-        // this.addEventListener('mousemove', this.catchTodoSection)
+        this.moveFrom = null;
+        this.moveTo = null;
+        this.$dragTodoCard = null;
     }
 
-    catchTodoSection(evt) {
-        const THROTTLE_TIME = 100;
-        const currentTime = new Date().valueOf();
-        
-        if(this.lastMoveEventTime && (currentTime - this.lastMoveEventTime < THROTTLE_TIME)) {
+    setUpdateTransition(func) {
+        this.updateTransition = func;
+    }
+
+    setFrom($el) {
+        this.moveFrom = $el;
+    }
+
+    setTo($el) {
+        this.moveTo = $el;
+    }
+
+    setDragTodoCard($el) {
+        this.$dragTodoCard = $el
+    }
+
+    pop = () => {
+        const moveFrom = this.moveFrom;
+        const moveTo = this.moveTo;
+
+        // 원래의 자리로 back
+        if(!moveFrom || !moveTo) {
+            this.$dragTodoCard.addEventListener("transitionend", this.updateTransition, true);
+            this.$dragTodoCard.style.transition = 'all 0.5s'
+            this.$dragTodoCard.style.top = `${moveFrom.offsetTop}px`
+            this.$dragTodoCard.style.left = `${moveFrom.offsetLeft}px`
+            this.$dragTodoCard.style.opacity = 0;
+
+            moveFrom.setAttribute('state','default')
             return
         }
-        this.lastMoveEventTime = currentTime;
 
-        const $currentSection = this.getCurrentSection(evt);
-        if($currentSection) {
-            if($currentSection !== this.lastActiveSection) {
-                $currentSection.handlePointerEnter();
-                this.lastActiveSection = $currentSection;
-            }
+        const fromId = moveFrom.getAttribute('id');
+        const toId = moveTo.getAttribute('id');
+
+        // 같은 자리로 이동
+        if(fromId === toId) {
+            this.$dragTodoCard.addEventListener("transitionend", this.updateTransition, true);
+            this.$dragTodoCard.style.transition = 'all 0.5s'
+            this.$dragTodoCard.style.top = `${moveFrom.offsetTop}px`
+            this.$dragTodoCard.style.left = `${moveFrom.offsetLeft}px`
+            this.$dragTodoCard.style.opacity = 0;
+            moveFrom.setAttribute('state','default')
+            return
         }
-        
-        
-    }
 
-    getCurrentSection(evt) {
-        const mouseX = evt.clientX;
-        const mouseY = evt.clientY;
-
-        const sections = Array.from(this.children);
+        // 자리이동
+        this.updateTransition()
+        const fromTodoSection = getTodoSection(moveFrom);
+        const $animationCard = moveFrom.copySelf();
         
-        for(let i=0; i<sections.length; i++) {
-            const section = sections[i];
-            const top = section.offsetTop;
-            const left = section.offsetLeft;
-            const bottom = top + section.offsetHeight;
-            const right = left + section.offsetWidth;
-            
-            const horizonContidion = mouseX <= right && mouseX >= left;
-            const verticalCondition = mouseY <= bottom && mouseY >= top;
-            if(horizonContidion && verticalCondition)  {
-                return section
+        this.appendChild($animationCard);
+        $animationCard.addEventListener('transitionend', () => {
+            if(this.contains($animationCard)) {
+                this.removeChild($animationCard);
             }
-        }
+        })
+        $animationCard.style.transition = 'all 0.5s'
+        $animationCard.style.top = `${moveTo.offsetTop + moveTo.clientHeight}px`
+        $animationCard.style.left = `${moveTo.offsetLeft}px`
+        $animationCard.style.opacity = 0;
+        fromTodoSection.removeChild(moveFrom)
+        insertAfter(moveFrom, moveTo);
+        moveFrom.setAttribute('state','default')
     }
+    
 }

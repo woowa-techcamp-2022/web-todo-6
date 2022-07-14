@@ -8,8 +8,8 @@ export class TodoMain extends HTMLElement{
         this.init()
         this.dragging = false;
         this.addEventListener('pointermove', this.handlePointerMove)
-        this.addEventListener('mouseup', this.handelMouseUp.bind(this))
-        this.addEventListener('mouseleave', this.handelMouseOut.bind(this))
+        this.addEventListener('pointerup', this.handelMouseUp.bind(this))
+        this.addEventListener('pointerleave', this.handelMouseOut.bind(this))
     }
 
     init(){
@@ -66,24 +66,16 @@ export class TodoMain extends HTMLElement{
     }
     handleDestroy(){ 
         if(this.$dragTodoCard instanceof HTMLElement) {
-           this.$dragTodoCard.addEventListener("transitionend", this.updateTransition.bind(this), true);
-           this.$dragTodoCard.style.transition = 'all 0.5s'
-            this.$dragTodoCard.style.top = `${this.dragTodoOriginY}px`
-            this.$dragTodoCard.style.left = `${this.dragTodoOriginX}px`
-            this.$dragTodoCard.style.opacity = 0;
-            //this.$dragTodoCard.style.height = `0px`
-            //this.removeChild(this.$dragTodoCard )
-           // this.$dragTodoCard = null
-        }
-        if(this.$placeTodoCard instanceof HTMLElement){
-            this.$placeTodoCard.setAttribute('state','default')
-            this.$placeTodoCard = null
+            const $todoContainer = document.querySelector('todo-container')
+            $todoContainer.setDragTodoCard(this.$dragTodoCard);
+            $todoContainer.setUpdateTransition(this.updateTransition.bind(this));
+            $todoContainer.pop()   
         }
     }
     updateTransition(){
         if(this.$dragTodoCard instanceof HTMLElement){
-       this.removeChild(this.$dragTodoCard)
-       this.$dragTodoCard = null
+            this.removeChild(this.$dragTodoCard)
+            this.$dragTodoCard = null
         }
     }
 }
