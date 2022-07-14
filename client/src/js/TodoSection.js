@@ -18,6 +18,7 @@ class TodoSection extends HTMLElement {
         this.addEventListener('pointermove', this.handlePointerMove)
         this.addEventListener('pointerleave', this.handlePointerLeave)
         this.addEventListener('pointerdown', this.handlePointerDown)
+        window.addEventListener('scroll', this.handleScroll)
         this.init();
     }
 
@@ -100,6 +101,12 @@ class TodoSection extends HTMLElement {
     }
 
     handlePointerDown = () => {
+        if(this.$blueline) {
+            this.$blueline.style.opacity = 0
+        }
+    }
+
+    handleScroll = () => {
         if(this.$blueline) {
             this.$blueline.style.opacity = 0
         }
