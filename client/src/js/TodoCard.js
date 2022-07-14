@@ -1,4 +1,4 @@
-import { postTodoCard } from "../api/todoCard";
+import { postTodoCard, deleteTodoCard } from "../api/todoCard";
 
 export class TodoCard extends HTMLElement{
 
@@ -175,7 +175,12 @@ export class TodoCard extends HTMLElement{
     }
    
     handleDeleteIconClickEvent(){
-        this.$section.removeChild(this)
+        const id = this.getAttribute('todoCardId')
+        deleteTodoCard(id).then((result)=>{
+            if(result.affectedRows === 0) return;
+            this.$section.removeChild(this)
+        })
+        
     }
     handleDeleteIconMouseOverEvent(){
         this.className = 'delete'
