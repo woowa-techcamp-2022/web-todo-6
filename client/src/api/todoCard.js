@@ -7,3 +7,12 @@ export const getTodoCard= () => {
         })
     })
 }
+
+export const postTodoCard = (title, contents,todoSectionId ) => {
+    console.log()
+    return new Promise((resolve, reject) => {
+        request.post('/todo',{title, contents,todoSectionId} ).then( todoCard => {
+            return resolve(todoCard)
+        })
+    })
+}

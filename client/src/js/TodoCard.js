@@ -1,3 +1,5 @@
+import { postTodoCard } from "../api/todoCard";
+
 export class TodoCard extends HTMLElement{
 
     static get observedAttributes() { return ['state', 'x', 'y']; }
@@ -119,10 +121,13 @@ export class TodoCard extends HTMLElement{
         const titleValue = this.querySelector('.todo-card-title-input').value
      
         const contentValue = this.querySelector('.todo-card-content-input').value
-        this.setAttribute('title', titleValue)
-        this.setAttribute('content' ,contentValue)
-        this.setAttribute('state','default')
-
+        const todoSectionId  = parseInt(this.$section.getAttribute('sectionId'))
+        postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
+            if(result.affectedRows != 1 )return;
+                this.setAttribute('title', titleValue)
+                this.setAttribute('content' ,contentValue)
+                this.setAttribute('state','default')
+        })
     }
 
     renderInputCard(){
@@ -186,7 +191,7 @@ export class TodoCard extends HTMLElement{
         this.downTriger = true
         setTimeout( ()=> {
             if(this.downTriger) this.copy(e)
-        },250);
+        },200);
         
     }
     handleDefaultCardPointerUpEvent(e){
@@ -214,7 +219,6 @@ export class TodoCard extends HTMLElement{
 
         this.$main.handleAppendChild(  $newTodoCard , this )
 
-  
     }
 
 }
