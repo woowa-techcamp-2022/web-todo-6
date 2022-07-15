@@ -1,6 +1,7 @@
 todo-aside {
   height: 100vh;
   max-height: 100vh;
+  overflow-y: auto;
   position: fixed;
   right: -100%;
   width: 30%;
