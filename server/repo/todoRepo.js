@@ -2,9 +2,23 @@ const { query }= require('../db')
 
 function getTodo(){
     return query(`
-        SELECT * FROM TodoCard  ORDER BY id DESC; ;
+        SELECT * FROM TodoCard  ORDER BY id DESC; 
     `)
 }
+
+function getTodoById(id){
+    return query(`
+    SELECT 
+        TodoCard.title as todoTitle ,
+        TodoSection.title as sectionTitle
+    FROM
+        TodoCard 
+    LEFT JOIN
+        TodoSection
+    on TodoCard.todoSectionId = TodoSection.id
+    WHERE TodoCard.id=${id} 
+    `)
+} 
 function getTodosByTodoSectionId(todoSectionId){
     return query(`
         SELECT * FROM TodoCard WHERE todoSectionId = ${todoSectionId};
@@ -42,6 +56,7 @@ function deleteTodo(id) {
 
 module.exports = {
     getTodo,
+    getTodoById,
     getTodosByTodoSectionId,
     insertTodo,
     updateTodo,

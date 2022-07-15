@@ -1,4 +1,4 @@
-import { getTodoCard } from "../api/todoCard.js";
+import { requsetGetTodoCard } from "../api/todoCard.js";
 import { getTodoContainer, getTodoMain } from "./util.js";
 import { TodoCard } from './TodoCard.js'
 
@@ -27,10 +27,10 @@ class TodoSection extends HTMLElement {
     }
 
     init(){
-        this.handleGetTodoCard()
+        this.getTodoCard()
     }
-    handleGetTodoCard(){
-        getTodoCard().then( (todoCards) => {
+    getTodoCard(){
+        requsetGetTodoCard().then( (todoCards) => {
             const cards = [];
             todoCards.forEach( todoCard => {
                 const { id, title, contents, todoSectionId } = todoCard;
@@ -146,6 +146,7 @@ class TodoSection extends HTMLElement {
 
         return list.join(',')
     }
+
 }
 
 class BlueLine extends HTMLElement {
@@ -185,6 +186,7 @@ class BlueLine extends HTMLElement {
 }
 
 class TodoSectionHeader extends HTMLElement {
+
     constructor() {
         super()
     }
@@ -193,7 +195,6 @@ class TodoSectionHeader extends HTMLElement {
         this.mountChildelements()
         this.$todoSection = this.parentElement
     }
-
 
     mountChildelements() {
         const title = this.getAttribute('title')
