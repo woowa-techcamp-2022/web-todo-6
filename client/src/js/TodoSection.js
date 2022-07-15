@@ -186,8 +186,6 @@ class BlueLine extends HTMLElement {
 }
 
 class TodoSectionHeader extends HTMLElement {
-    
-    static get observedAttributes() { return ['count']; }
 
     constructor() {
         super()
@@ -196,12 +194,6 @@ class TodoSectionHeader extends HTMLElement {
     connectedCallback() {
         this.mountChildelements()
         this.$todoSection = this.parentElement
-    }
-
-    updateCount(){
-        const count = this.$todoSection.querySelector("todo-card").length
-        this.setAttribute('count', count)
-        mountChildelements();
     }
 
     mountChildelements() {
