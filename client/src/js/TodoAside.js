@@ -99,8 +99,16 @@ class TodoLog extends HTMLElement {
 
     parseTimestamp(timestamp) {
         const current= new Date();
+        const OFFSET = 1000 * 60 * 60 * 9
+        timestamp += OFFSET;
         const diff = current - timestamp;
         const ONE_HOUR = 1000 * 60 * 60;
+        const ONE_MINUTE = 1000 * 60;
+        
+        
+        if(current - timestamp < ONE_MINUTE) {
+            return '방금 전'
+        }
 
         if(current - timestamp < ONE_HOUR) {
             return `${Math.floor(diff/1000/60)}분 전`
