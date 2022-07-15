@@ -62,10 +62,9 @@ router.delete('/:id', (req, res, next) => {
         req.deleteLogData = todo[0]
         deleteTodo(id).then( result => {
             req.data = result
+            req.logData = { action : "삭제"}
+            next();
         })
-        req.logData = { action : "삭제"}
-        
-        next();
     })
 
 },setLog)
