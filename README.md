@@ -1,7 +1,7 @@
 # web-todo-6
 2주차 6조
-- [![title](https://img.shields.io/badge/DEVELOPER-이형준-blue)](https://github.com/jstella96)
-- [![title](https://img.shields.io/badge/DEVELOPER-전별-blue)](https://github.com/kokocan12)
+- [![title](https://img.shields.io/badge/DEVELOPER-이형준-blue)](https://github.com/kokocan12)
+- [![title](https://img.shields.io/badge/DEVELOPER-전별-blue)](https://github.com/jstella96)
 
 배포링크 : 15.164.208.91:3000  
 영상링크 : https://youtu.be/foGfmo2VYT8
