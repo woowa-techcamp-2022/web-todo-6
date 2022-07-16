@@ -1,5 +1,5 @@
 import { getTodoContainer } from "./util";
-import { requestPostTodoCard, deleteTodoCard, requestUpdateTodoCard } from "../api/todoCard";
+import { requestPostTodoCard, requestDeleteTodoCard, requestUpdateTodoCard } from "../api/todoCard";
 
 
 export class TodoCard extends HTMLElement{
@@ -216,7 +216,7 @@ export class TodoCard extends HTMLElement{
    
     handleDeleteIconClickEvent(){
         const id = this.getAttribute('todoCardId')
-        deleteTodoCard(id).then((result)=>{
+        requestDeleteTodoCard(id).then((result)=>{
             if(result.affectedRows === 0) return;
             this.$section.removeChild(this)
         })

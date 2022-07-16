@@ -1,4 +1,4 @@
-import { requsetGetTodoCard } from "../api/todoCard.js";
+import { requestGetTodoCard } from "../api/todoCard.js";
 import { getTodoContainer, getTodoMain } from "./util.js";
 import { TodoCard } from './TodoCard.js'
 
@@ -30,7 +30,7 @@ class TodoSection extends HTMLElement {
         this.getTodoCard()
     }
     getTodoCard(){
-        requsetGetTodoCard().then( (todoCards) => {
+        requestGetTodoCard().then( (todoCards) => {
             const cards = [];
             todoCards.forEach( todoCard => {
                 const { id, title, contents, todoSectionId } = todoCard;
