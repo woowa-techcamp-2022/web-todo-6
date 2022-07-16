@@ -1,5 +1,5 @@
 import { getTodoContainer } from "./util";
-import { postTodoCard, deleteTodoCard, updateTodoCard } from "../api/todoCard";
+import { requestPostTodoCard, deleteTodoCard, requestUpdateTodoCard } from "../api/todoCard";
 
 
 export class TodoCard extends HTMLElement{
@@ -104,7 +104,6 @@ export class TodoCard extends HTMLElement{
  
         this.appendChild($todoCardTitle)
         this.appendChild($todoCardContent)
-
     }
 
 
@@ -135,32 +134,41 @@ export class TodoCard extends HTMLElement{
         this.checkRegisterButtonDisabled();
         
     }
+
     handleRegisterButtonClickEvent(){
 
-        const titleValue = this.querySelector('.todo-card-title-input').value
-        const contentValue = this.querySelector('.todo-card-content-input').value
+        const title = this.querySelector('.todo-card-title-input').value
+        const contents = this.querySelector('.todo-card-content-input').value
         const todoSectionId  = parseInt(this.$section.getAttribute('sectionId'))
-        //코드 분리 할꺼에요!!
-        let todoCardId = this.getAttribute('todoCardId')
+        const todoCardId = parseInt(this.getAttribute('todoCardId'))
+
         if(todoCardId){
-            updateTodoCard( parseInt(todoCardId),{ title:titleValue, contents:contentValue }).then((result)=>{
+            requestUpdateTodoCard( { todoCardId,  title, contents } ).then((result)=>{
                 if(result.affectedRows != 1 )return;
-                this.setAttribute('title', titleValue)
-                this.setAttribute('content' ,contentValue)
-                this.setAttribute('state','default')
+                const nextAttribute = { title , content, state:'default' }
+                this.changeCardAttribute(nextAttribute)
             })
         }else{
-          postTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
+            requestPostTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
               if(result.affectedRows != 1 )return;
-              this.setAttribute('title', titleValue)
-              this.setAttribute('content' ,contentValue)
-              this.setAttribute('state','default')
-              this.setAttribute('id',result.insertId)
-              this.setAttribute('todoCardId',result.insertId)
+              const id = result.insertId 
+              const nextAttribute = { title, contents, id, todoCardId: id, state: 'default'} 
+              this.changeCardAttribute(nextAttribute)
+ 
           })
         }
             
     }
+    
+    changeCardAttribute(nextAttribute){
+        const nextAttributeKeys = nextAttribute.keys();
+        nextAttributeKeys.forEach((key)=>{
+            if(!key) return;
+            this.setAttribute(key, nextAttribute[key])
+        }) 
+    }
+
+
 
     renderInputCard(){
         this.innerHTML = ""
