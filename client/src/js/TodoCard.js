@@ -6,6 +6,26 @@ export class TodoCard extends HTMLElement{
 
     static get observedAttributes() { return ['state', 'x', 'y']; }
 
+    /**
+     * @param {string} title
+     * @param {string} content 
+     * @param {string} x 
+     * @param {string} y
+     * @param {string} state
+     * @param {string} id
+     */
+    constructor(state, title, content, id , x, y) {
+        super();
+
+        this.setAttribute('content', content);
+        this.setAttribute('title', title);
+        this.setAttribute('x', x);
+        this.setAttribute('y', y);
+        this.setAttribute('state', state)
+        this.setAttribute('id', id)
+        this.setAttribute('todoCardId', id)
+    }
+
     todoStateMapper = {
         default : ($el) => { 
             $el.className = "default"
@@ -14,7 +34,7 @@ export class TodoCard extends HTMLElement{
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
             $el.addEventListener('pointerup', this.handleDefaultCardPointerUpEvent.bind(this))
             $el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
-            $el.addEventListener('mouseout',this.handleTodoCardMouseOutEvent.bind(this))
+            $el.addEventListener('pointerout',this.handleTodoCardPointerOutEvent.bind(this))
         },
         active : ($el) => { 
             $el.className = "active"
@@ -44,9 +64,7 @@ export class TodoCard extends HTMLElement{
 
     }
     disconnectedCallback() {
-        
         this.computeTodoCardCount();
-    
     }
 
     computeTodoCardCount(){
@@ -57,12 +75,11 @@ export class TodoCard extends HTMLElement{
 
     attributeChangedCallback(name, oldValue, newValue) {
         if(name === 'state') this.updateState(newValue) 
-        if(name === 'x' ) this.updateXPositon(newValue)
-        if(name === 'y')  this.updateYPositon(newValue)
+        else if(name === 'x' ) this.updateXPositon(newValue)
+        else if(name === 'y')  this.updateYPositon(newValue)
     }
     
     updateXPositon(newX){
-    
         this.style.left = `${newX}px`;
     }
 
@@ -146,21 +163,21 @@ export class TodoCard extends HTMLElement{
             requestUpdateTodoCard( { todoCardId,  title, contents } ).then((result)=>{
                 if(result.affectedRows != 1 )return;
                 const nextAttribute = { title , content, state:'default' }
-                this.changeCardAttribute(nextAttribute)
+                this.setTodoCardAttributes(nextAttribute)
             })
         }else{
             requestPostTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
               if(result.affectedRows != 1 )return;
               const id = result.insertId 
               const nextAttribute = { title, contents, id, todoCardId: id, state: 'default'} 
-              this.changeCardAttribute(nextAttribute)
+              this.setTodoCardAttributes(nextAttribute)
  
           })
         }
             
     }
     
-    changeCardAttribute(nextAttribute){
+    setTodoCardAttributes(nextAttribute){
         const nextAttributeKeys = nextAttribute.keys();
         nextAttributeKeys.forEach((key)=>{
             if(!key) return;
@@ -234,42 +251,39 @@ export class TodoCard extends HTMLElement{
 
     handleDefaultCardPointerDownEvent(e){
         this.downTriger = true
+
         setTimeout( ()=> {
             if(this.downTriger) {
-                this.copy(e)
+                const $newTodoCard = this.copySelf();
+                this.$main.handleAppendChild(  $newTodoCard , this )
                 this.$todoContainer.setFrom(this);
             }
         },250);
     }
-    handleTodoCardMouseOutEvent(e){
+    
+    //수정 
+    handleTodoCardPointerOutEvent(e){
         this.downTriger = false
     }
+    // 수정
     handleDefaultCardPointerUpEvent(e){
         this.downTriger = false;
     }
-    copy(){
-        const $newTodoCard = this.copySelf();
-        this.$main.handleAppendChild(  $newTodoCard , this )
-    }
 
     copySelf() {
-        const x = this.offsetLeft
-        const y = this.offsetTop
 
+        const x = this.offsetLeft
+        const y = this.offsetTop 
         const width = this.clientWidth;
-        const height = this.clientHeight
+        const height = this.clientHeight;
         const title = this.getAttribute('title')
         const content = this.getAttribute('content')
-        const $newTodoCard = document.createElement('todo-card')
- 
-        $newTodoCard.setAttribute('state','drag')
-        $newTodoCard.setAttribute('title',title)
-        $newTodoCard.setAttribute('content',content)
-        $newTodoCard.setAttribute('x', x )
-        $newTodoCard.setAttribute('y', y)
+    
+        const $newTodoCard = new TodoCard( 'drag', title, content, x, y, id )
 
-        $newTodoCard.style.width  = `${width}px`;
-        $newTodoCard.style.height = `${height}px`;
+        $newTodoCard.style.width  = `${width}px`
+        $newTodoCard.style.height = `${height}px`
+
         return $newTodoCard;
     }
 

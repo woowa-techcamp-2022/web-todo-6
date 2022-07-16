@@ -27,25 +27,12 @@ class TodoSection extends HTMLElement {
     }
 
     init(){
-        this.getTodoCard()
+        this.loadTodoCard()
     }
-    getTodoCard(){
-        requestGetTodoCard().then( (todoCards) => {
-            const cards = [];
-            todoCards.forEach( todoCard => {
-                const { id, title, contents, todoSectionId } = todoCard;
-                if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
-                    const $todoCard = document.createElement('todo-card')
-                    $todoCard.setAttribute('state', 'default')
-                    $todoCard.setAttribute('title', title)
-                    $todoCard.setAttribute('content', contents)
-                    $todoCard.setAttribute('id', id)
-                    $todoCard.setAttribute('todoCardId', id)
-                    
-                    cards.push($todoCard)
-                }
-            });
-
+    loadTodoCard(){
+        requestGetTodoCard().then( (todoCardData) => {
+            
+            const cards = this.createTodoCardElements(todoCardData)
             this.$todoMain.sections.then(sections => {
                 const cardIds = sections.find(section => section.id === +this.getAttribute('sectionId')).todoCardIds
                 const ordered = cards.sort((a, b) => {
@@ -58,6 +45,19 @@ class TodoSection extends HTMLElement {
             })
         })
     }
+
+    createTodoCardElements(todoCards){
+        const todoCardElements = [];
+        todoCards.forEach( todoCard => {
+            const { id, title, contents, todoSectionId } = todoCard;
+            if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
+                const $todoCard = new TodoCard('default', title, contents, id)
+                todoCardElements.push($todoCard)
+            }
+        });
+        return todoCardElements;
+    }
+
     handlePointerEnter = () => {
         if(this.$blueline) return
         const $blueline = new BlueLine();
