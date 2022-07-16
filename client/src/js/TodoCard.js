@@ -34,12 +34,25 @@ export class TodoCard extends HTMLElement{
 
     connectedCallback(){
         const state = this.getAttribute('state')
-
         this.updateState(state)
         this.$section = this.parentElement
         this.$main = document.querySelector('todo-main')
         this.downTriger = false
         this.$todoContainer = getTodoContainer(this); 
+
+        this.computeTodoCardCount();
+
+    }
+    disconnectedCallback() {
+        
+        this.computeTodoCardCount();
+    
+    }
+
+    computeTodoCardCount(){
+        const $todoCount = this.$section.querySelector('todo-section-header-count')
+        const count = this.$section.querySelectorAll('todo-card').length
+        $todoCount.textContent = count;
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -47,6 +60,7 @@ export class TodoCard extends HTMLElement{
         if(name === 'x' ) this.updateXPositon(newValue)
         if(name === 'y')  this.updateYPositon(newValue)
     }
+    
     updateXPositon(newX){
     
         this.style.left = `${newX}px`;
