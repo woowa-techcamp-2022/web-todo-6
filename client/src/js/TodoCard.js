@@ -28,9 +28,9 @@ export class TodoCard extends HTMLElement{
             $el.render()
             $el.renderDeleteIcon();
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
-            $el.addEventListener('pointerup', this.handleDefaultCardPointerUpEvent.bind(this))
+            $el.addEventListener('pointerup', this.stopPointerDownEvent.bind(this))
             $el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
-            $el.addEventListener('pointerout',this.handleTodoCardPointerOutEvent.bind(this))
+            $el.addEventListener('pointerout',this.stopPointerDownEvent.bind(this))
         },
         active : ($el) => { 
             $el.className = "active"
@@ -53,7 +53,7 @@ export class TodoCard extends HTMLElement{
         this.updateState(state)
         this.$section = this.parentElement
         this.$main = document.querySelector('todo-main')
-        this.downTriger = false
+        this.down= false
         this.$todoContainer = getTodoContainer(this); 
 
         this.computeTodoCardCount();
@@ -81,7 +81,7 @@ export class TodoCard extends HTMLElement{
     }
 
     updateYPositon(newY){
-        if(newY)return;
+        if(!newY)return;
         this.style.top = `${newY}px`;
     }
 
@@ -248,29 +248,24 @@ export class TodoCard extends HTMLElement{
     }
 
     handleDefaultCardPointerDownEvent(e){
-        this.downTriger = true
+        this.down = true
         setTimeout( ()=> {
-            if(this.downTriger) {
-                const $newTodoCard = this.copySelf();
-                this.$main.handleAppendChild(  $newTodoCard , this )
-                this.$todoContainer.setFrom(this);
-            }
+            if(!this.down) return;
+            const $newTodoCard = this.copySelf();
+            this.$main.handleAppendChild(  $newTodoCard , this )
+            this.$todoContainer.setFrom(this);
+            
         },250);
     }
     
-    //수정 
-    handleTodoCardPointerOutEvent(e){
-        this.downTriger = false
-    }
-    // 수정
-    handleDefaultCardPointerUpEvent(e){
-        this.downTriger = false;
+    stopPointerDownEvent(e){
+        this.down = false
     }
 
     copySelf() {
 
         const x = this.offsetLeft
-        const y = this.offsetTop 
+        const y = this.offsetTop
         const width = this.clientWidth;
         const height = this.clientHeight;
         const title = this.getAttribute('title')
