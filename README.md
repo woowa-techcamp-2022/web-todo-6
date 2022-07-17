@@ -44,7 +44,9 @@ npm run dev
 npm run nodemon
 ```
 
-## Wiki
-* [프로젝트 목표](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/2%EC%A3%BC%EC%B0%A8-%EB%AA%A9%ED%91%9C)
-* [프로젝트 설계](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%EA%B5%AC%ED%98%84)
-* [Git 규칙](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%EA%B7%9C%EC%B9%99)
+## [Wiki](https://github.com/woowa-techcamp-2022/web-todo-6/wiki)
+- [2주차 프로젝트 목표](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A9%ED%91%9C)
+- [프로젝트 구현 계획](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%ED%98%84-%EA%B3%84%ED%9A%8D)
+- [개발 시 주의사항](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%EA%B0%9C%EB%B0%9C-%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [Git 규칙](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/Git-%EA%B7%9C%EC%B9%99)
+- [프로젝트 회고](https://github.com/woowa-techcamp-2022/web-todo-6/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9A%8C%EA%B3%A0)
