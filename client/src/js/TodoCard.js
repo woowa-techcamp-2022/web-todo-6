@@ -9,18 +9,14 @@ export class TodoCard extends HTMLElement{
     /**
      * @param {string} title
      * @param {string} content 
-     * @param {string} x 
-     * @param {string} y
      * @param {string} state
      * @param {string} id
      */
-    constructor(state, title, content, id , x, y) {
+    constructor(state, title, content ,id) {
         super();
 
         this.setAttribute('content', content);
         this.setAttribute('title', title);
-        this.setAttribute('x', x);
-        this.setAttribute('y', y);
         this.setAttribute('state', state)
         this.setAttribute('id', id)
         this.setAttribute('todoCardId', id)
@@ -80,10 +76,12 @@ export class TodoCard extends HTMLElement{
     }
     
     updateXPositon(newX){
+        if(!newX)return;
         this.style.left = `${newX}px`;
     }
 
     updateYPositon(newY){
+        if(newY)return;
         this.style.top = `${newY}px`;
     }
 
@@ -278,7 +276,10 @@ export class TodoCard extends HTMLElement{
         const title = this.getAttribute('title')
         const content = this.getAttribute('content')
     
-        const $newTodoCard = new TodoCard( 'drag', title, content, x, y )
+        const $newTodoCard = new TodoCard( 'drag', title, content)
+
+        $newTodoCard.setAttribute( 'x', x )
+        $newTodoCard.setAttribute( 'y', y )
 
         $newTodoCard.style.width  = `${width}px`
         $newTodoCard.style.height = `${height}px`

@@ -2,7 +2,7 @@ const { setTodoLog } = require('../repo/todoLogRepo')
 const { getTodoById } = require('../repo/todoRepo')
 
 function setLog(req,res){
-
+    return res.status(200).json(req.data) 
     const { action, id } = req.logData
     if(action === '삭제'){
         const { todoTitle, sectionTitle } = req.deleteLogData
