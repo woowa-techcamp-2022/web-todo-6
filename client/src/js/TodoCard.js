@@ -251,7 +251,6 @@ export class TodoCard extends HTMLElement{
 
     handleDefaultCardPointerDownEvent(e){
         this.downTriger = true
-
         setTimeout( ()=> {
             if(this.downTriger) {
                 const $newTodoCard = this.copySelf();
@@ -279,7 +278,7 @@ export class TodoCard extends HTMLElement{
         const title = this.getAttribute('title')
         const content = this.getAttribute('content')
     
-        const $newTodoCard = new TodoCard( 'drag', title, content, x, y, id )
+        const $newTodoCard = new TodoCard( 'drag', title, content, x, y )
 
         $newTodoCard.style.width  = `${width}px`
         $newTodoCard.style.height = `${height}px`
