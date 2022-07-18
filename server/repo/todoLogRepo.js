@@ -15,9 +15,10 @@ function getTodoLogs() {
 }
 
 
-function setTodoLog(action, todoTitle, todoSction ){
+function setTodoLog( logData ){
+    const {action, todoTitle, sectionTitle } = logData
     return query (`
-        INSERT INTO TodoLog(action, todoTitle, todoSection) VALUES ("${action}", "${todoTitle}", "${todoSction}");
+        INSERT INTO TodoLog(action, todoTitle, todoSection) VALUES ("${action}", "${todoTitle}", "${sectionTitle }");
     `)
 }
 

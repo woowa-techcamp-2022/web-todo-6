@@ -154,7 +154,8 @@ export class TodoCard extends HTMLElement{
         const todoCardId = parseInt(this.getAttribute('todoCardId'))
 
         if(todoCardId){
-            requestUpdateTodoCard( todoCardId, { contents : content } ).then((result)=>{
+            requestUpdateTodoCard( todoCardId, { title ,contents : content } ).then((result)=>{
+         
                 if(result.affectedRows != 1 )return;
                 const nextAttribute = { title , content , state:'default' }
                 this.setTodoCardAttributes(nextAttribute)

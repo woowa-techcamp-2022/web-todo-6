@@ -27,6 +27,7 @@ export const requestDeleteTodoCard = (id) => {
 
 
 export const requestUpdateTodoCard = ( id, updateData ) => {
+    console.log(updateData)
     return new Promise((resolve, reject) => {
         request.patch(`/todo/${id}`,updateData ).then( result => {
             return resolve(result)

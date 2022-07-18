@@ -1,28 +1,41 @@
 const { setTodoLog } = require('../repo/todoLogRepo')
 const { getTodoById } = require('../repo/todoRepo')
 
-function setLog(req,res){
-    return res.status(200).json(req.data) 
-    const { action, id } = req.logData
-    if(action === '삭제'){
-        const { todoTitle, sectionTitle } = req.deleteLogData
-            setTodoLog(action, todoTitle, sectionTitle).then( () => {
-                return res.status(200).json(req.data) 
-        })
-    }else{
-    
+
+function createLog(req, res, next){
+    const id  =  req.id;
+    if(!id) return;
     getTodoById(id).then(todo => {
-        isArray = Array.isArray(todo)
-        if(isArray){
+        const isArray = Array.isArray(todo)
+        if(isArray && todo.length > 0){
             todo = todo[0]
         }
         const { todoTitle, sectionTitle } = todo
-        setTodoLog(action, todoTitle, sectionTitle).then( () => {
-            return res.status(200).json(req.data) 
-        })
+        let action = ''
+        if(req.method === "POST"){
+            action = '등록'
+        }else if(req.method === "PATCH"){
+            action = req.move ? '이동' : '수정'
+        }else if(req.method === "DELETE"){
+            action = '삭제'
+        }
+        req.logData = { action , todoTitle, sectionTitle }
+
+        next();
     })
-    }
+    
+
+}
+
+function setLog(req,res){
+    if(!req.logData) return res.status(500).send()
+    setTodoLog(req.logData).then( () => {
+    return res.status(200).json(req.data) 
+})
+
+
 }
 module.exports = {
+    createLog,
     setLog
 }
