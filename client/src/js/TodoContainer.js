@@ -1,4 +1,4 @@
-import { updateTodoCard } from "../api/todoCard";
+import { requestUpdateTodoCard } from "../api/todoCard";
 import { updateSection } from "../api/todoSection";
 import { getTodoSection, insertAfter } from "./util";
 
@@ -91,7 +91,7 @@ export class TodoContainer extends HTMLElement{
 
         updateSection(toTodoSection.getAttribute('sectionId'), {title: toTodoSection.getAttribute('title'), todoCardIds: toTodoSection.getTodoCardList()})
         updateSection(fromTodoSection.getAttribute('sectionId'), {title: fromTodoSection.getAttribute('title'), todoCardIds: fromTodoSection.getTodoCardList()})
-        updateTodoCard(fromId, {title: moveFrom.getAttribute('title'), contents: moveFrom.getAttribute('content'), todoSectionId: toTodoSection.getAttribute('sectionId')})
+        requestUpdateTodoCard(fromId, {title: moveFrom.getAttribute('title'), contents: moveFrom.getAttribute('content'), todoSectionId: toTodoSection.getAttribute('sectionId')})
     }
     
 }

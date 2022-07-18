@@ -1,4 +1,4 @@
-import { requsetGetTodoCard } from "../api/todoCard.js";
+import { requestGetTodoCard } from "../api/todoCard.js";
 import { getTodoContainer, getTodoMain } from "./util.js";
 import { TodoCard } from './TodoCard.js'
 
@@ -27,25 +27,13 @@ class TodoSection extends HTMLElement {
     }
 
     init(){
-        this.getTodoCard()
+        this.loadTodoCard()
     }
-    getTodoCard(){
-        requsetGetTodoCard().then( (todoCards) => {
-            const cards = [];
-            todoCards.forEach( todoCard => {
-                const { id, title, contents, todoSectionId } = todoCard;
-                if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
-                    const $todoCard = document.createElement('todo-card')
-                    $todoCard.setAttribute('state', 'default')
-                    $todoCard.setAttribute('title', title)
-                    $todoCard.setAttribute('content', contents)
-                    $todoCard.setAttribute('id', id)
-                    $todoCard.setAttribute('todoCardId', id)
-                    
-                    cards.push($todoCard)
-                }
-            });
-
+    loadTodoCard(){
+        const sectionId = this.getAttribute('sectionId')
+        requestGetTodoCard(sectionId).then( (todoCardData) => {
+            
+            const cards = this.createTodoCardElements(todoCardData)
             this.$todoMain.sections.then(sections => {
                 const cardIds = sections.find(section => section.id === +this.getAttribute('sectionId')).todoCardIds
                 const ordered = cards.sort((a, b) => {
@@ -58,6 +46,17 @@ class TodoSection extends HTMLElement {
             })
         })
     }
+
+    createTodoCardElements(todoCards){
+        const todoCardElements = [];
+        todoCards.forEach( todoCard => {
+            const { id, title, contents} = todoCard;
+            const $todoCard = new TodoCard('default', title, contents, id)
+            todoCardElements.push($todoCard) 
+        });
+        return todoCardElements;
+    }
+
     handlePointerEnter = () => {
         if(this.$blueline) return
         const $blueline = new BlueLine();
@@ -193,7 +192,7 @@ class TodoSectionHeader extends HTMLElement {
 
     connectedCallback() {
         this.mountChildelements()
-        this.$todoSection = this.parentElement
+        this.$section = this.parentElement
     }
 
     mountChildelements() {
@@ -216,15 +215,14 @@ class TodoSectionHeader extends HTMLElement {
     }
 
     addNewTodoCard(){
-        const $todoCard = document.createElement('todo-card')
-        $todoCard.setAttribute('state','active')
-        this.$todoSection.appendChild($todoCard)
-        const todoCard = this.$todoSection.querySelectorAll("todo-card");
+        const $todoCard = new TodoCard('active','','') 
+        this.$section.appendChild($todoCard)
+        const todoCard = this.$section.querySelectorAll("todo-card");
         
         if(todoCard.length === 0 ){
-            this.$todoSection.appendChild($todoCard)
+            this.$section.appendChild($todoCard)
         }else{
-            this.$todoSection.insertBefore($todoCard,todoCard[0])
+            this.$section.insertBefore($todoCard,todoCard[0])
         }
     }
 }
