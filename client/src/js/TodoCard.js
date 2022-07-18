@@ -154,16 +154,16 @@ export class TodoCard extends HTMLElement{
         const todoCardId = parseInt(this.getAttribute('todoCardId'))
 
         if(todoCardId){
-            requestUpdateTodoCard( todoCardId, { title, contents } ).then((result)=>{
+            requestUpdateTodoCard( todoCardId, { contents : content } ).then((result)=>{
                 if(result.affectedRows != 1 )return;
-                const nextAttribute = { title , content : contents , state:'default' }
+                const nextAttribute = { title , content , state:'default' }
                 this.setTodoCardAttributes(nextAttribute)
             })
         }else{
-            requestPostTodoCard(title, contents , todoSectionId ).then( (result) => {
+            requestPostTodoCard(title, content , todoSectionId ).then( (result) => {
               if(result.affectedRows != 1 )return;
               const id = result.insertId 
-              const nextAttribute = { title,  content : contents , id, todoCardId: id, state: 'default'} 
+              const nextAttribute = { title,  content , id, todoCardId: id, state: 'default'} 
               this.setTodoCardAttributes(nextAttribute)
  
           })
