@@ -193,7 +193,7 @@ class TodoSectionHeader extends HTMLElement {
 
     connectedCallback() {
         this.mountChildelements()
-        this.$todoSection = this.parentElement
+        this.$section = this.parentElement
     }
 
     mountChildelements() {
@@ -216,15 +216,14 @@ class TodoSectionHeader extends HTMLElement {
     }
 
     addNewTodoCard(){
-        const $todoCard = document.createElement('todo-card')
-        $todoCard.setAttribute('state','active')
-        this.$todoSection.appendChild($todoCard)
-        const todoCard = this.$todoSection.querySelectorAll("todo-card");
+        const $todoCard = new TodoCard('active','','') 
+        this.$section.appendChild($todoCard)
+        const todoCard = this.$section.querySelectorAll("todo-card");
         
         if(todoCard.length === 0 ){
-            this.$todoSection.appendChild($todoCard)
+            this.$section.appendChild($todoCard)
         }else{
-            this.$todoSection.insertBefore($todoCard,todoCard[0])
+            this.$section.insertBefore($todoCard,todoCard[0])
         }
     }
 }

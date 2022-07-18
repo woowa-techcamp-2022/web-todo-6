@@ -1,5 +1,6 @@
 import { getTodoContainer } from "./util";
 import { requestPostTodoCard, requestDeleteTodoCard, requestUpdateTodoCard } from "../api/todoCard";
+import { TodoSection } from './TodoSection'
 
 
 export class TodoCard extends HTMLElement{
@@ -29,8 +30,8 @@ export class TodoCard extends HTMLElement{
             $el.renderDeleteIcon();
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
             $el.addEventListener('pointerup', this.stopPointerDownEvent.bind(this))
-            $el.addEventListener('dblclick',this.handleTodoCardDblClickEvent.bind(this))
-            $el.addEventListener('pointerout',this.stopPointerDownEvent.bind(this))
+            $el.addEventListener('dblclick', this.handleDefaultCardDblclickEvent.bind(this) )//this.setTodoCardAttributes.bind(this,{state:'active'}))
+            $el.addEventListener('pointerout', this.stopPointerDownEvent.bind(this,'default'))
         },
         active : ($el) => { 
             $el.className = "active"
@@ -44,9 +45,16 @@ export class TodoCard extends HTMLElement{
         place : ($el) => {
             $el.className = "place"
             this.render()
+        },
+        delete : ($el) => {
+            $el.className = "delete"
         }
     }
   
+    handleDefaultCardDblclickEvent(){
+        this.stopPointerDownEvent();
+        this.setTodoCardAttributes({state:'active'})
+    }
 
     connectedCallback(){
         const state = this.getAttribute('state')
@@ -55,15 +63,16 @@ export class TodoCard extends HTMLElement{
         this.$main = document.querySelector('todo-main')
         this.down= false
         this.$todoContainer = getTodoContainer(this); 
-
         this.computeTodoCardCount();
 
     }
+
     disconnectedCallback() {
         this.computeTodoCardCount();
     }
 
     computeTodoCardCount(){
+        if(!(this.$section instanceof TodoSection)) return;
         const $todoCount = this.$section.querySelector('todo-section-header-count')
         const count = this.$section.querySelectorAll('todo-card').length
         $todoCount.textContent = count;
@@ -92,19 +101,6 @@ export class TodoCard extends HTMLElement{
         }
     }
 
-    handleCencelButtonClickEvent(e){
-        if(this.hasAttribute('todoCardId')){
-            this.setAttribute('state','default')
-        }else{
-            this.$section.removeChild(this)
-        }
-        e.preventDefault();
-    }
-
-    handleTodoCardDblClickEvent(){
-        this.setAttribute('state','active')
-    }
-   
 
     render(){
         this.innerHTML = ""
@@ -131,8 +127,8 @@ export class TodoCard extends HTMLElement{
         $todoCardRegisterButton.className = 'todo-card-register-button'
 
         $todoCardCencelButton.innerHTML = '취소'
-        const todoCardId = this.getAttribute('todoCardId')
-        if(todoCardId){
+        const todoCardId = this.getAttribute('id')
+        if(!todoCardId){
             $todoCardRegisterButton.innerHTML = '수정'
         }else{
             $todoCardRegisterButton.innerHTML = '등록'
@@ -153,21 +149,21 @@ export class TodoCard extends HTMLElement{
     handleRegisterButtonClickEvent(){
 
         const title = this.querySelector('.todo-card-title-input').value
-        const contents = this.querySelector('.todo-card-content-input').value
+        const content = this.querySelector('.todo-card-content-input').value
         const todoSectionId  = parseInt(this.$section.getAttribute('sectionId'))
         const todoCardId = parseInt(this.getAttribute('todoCardId'))
 
         if(todoCardId){
-            requestUpdateTodoCard( { todoCardId,  title, contents } ).then((result)=>{
+            requestUpdateTodoCard( todoCardId, { title, contents } ).then((result)=>{
                 if(result.affectedRows != 1 )return;
-                const nextAttribute = { title , content, state:'default' }
+                const nextAttribute = { title , content : contents , state:'default' }
                 this.setTodoCardAttributes(nextAttribute)
             })
         }else{
-            requestPostTodoCard(titleValue,contentValue , todoSectionId ).then( (result) => {
+            requestPostTodoCard(title, contents , todoSectionId ).then( (result) => {
               if(result.affectedRows != 1 )return;
               const id = result.insertId 
-              const nextAttribute = { title, contents, id, todoCardId: id, state: 'default'} 
+              const nextAttribute = { title,  content : contents , id, todoCardId: id, state: 'default'} 
               this.setTodoCardAttributes(nextAttribute)
  
           })
@@ -175,8 +171,17 @@ export class TodoCard extends HTMLElement{
             
     }
     
+    handleCencelButtonClickEvent(e){
+        if(!this.getAttribute('todoCardId')) return;
+        this.setTodoCardAttributes({state:'default'})
+        this.$section.removeChild(this)
+        
+    }
+   
+
     setTodoCardAttributes(nextAttribute){
-        const nextAttributeKeys = nextAttribute.keys();
+        if(!nextAttribute) return;
+        const nextAttributeKeys = Object.getOwnPropertyNames(nextAttribute);
         nextAttributeKeys.forEach((key)=>{
             if(!key) return;
             this.setAttribute(key, nextAttribute[key])
@@ -199,18 +204,18 @@ export class TodoCard extends HTMLElement{
         $todoCardTitleInput.className = "todo-card-title-input todo-card-title"
         $todoCardContentInput.className = 'todo-card-content-input todo-card-content'
      
-        $todoCardTitleInput.addEventListener('input',this.checkRegisterButtonDisabled)
-        $todoCardContentInput.addEventListener('keyup',this.checkRegisterButtonDisabled)
+        $todoCardTitleInput.addEventListener('input',this.checkRegisterButtonDisabled.bind(this))
+        $todoCardContentInput.addEventListener('keyup',this.checkRegisterButtonDisabled.bind(this))
 
         this.appendChild($todoCardTitleInput)
         this.appendChild($todoCardContentInput)
-     
+        
     }
 
     checkRegisterButtonDisabled(){
-        const $todoCardTitle = document.querySelector('.todo-card-title-input')
-        const $todoCardContent = document.querySelector('.todo-card-content-input')
-        const $todoCardRegisterButton = document.querySelector('.todo-card-register-button')
+        const $todoCardTitle = this.querySelector('.todo-card-title-input')
+        const $todoCardContent = this.querySelector('.todo-card-content-input')
+        const $todoCardRegisterButton = this.querySelector('.todo-card-register-button')
 
         if($todoCardTitle.value.length > 0 && $todoCardContent.value.length > 0){
             $todoCardRegisterButton.disabled = false
@@ -223,8 +228,8 @@ export class TodoCard extends HTMLElement{
         const $todoCardDeleteIcon = document.createElement('todo-card-delete-icon')
         $todoCardDeleteIcon.innerHTML= "X"
 
-        $todoCardDeleteIcon.addEventListener('mouseover',this.handleDeleteIconMouseOverEvent.bind(this))
-        $todoCardDeleteIcon.addEventListener('mouseout',this.handleDeleteIconMouseOutEvent.bind(this))
+        $todoCardDeleteIcon.addEventListener('pointerover',this.setClassName.bind(this,'delete'))
+        $todoCardDeleteIcon.addEventListener('pointerout',this.setClassName.bind(this,'default'))
         $todoCardDeleteIcon.addEventListener('click',this.handleDeleteIconClickEvent.bind(this))
         this.appendChild($todoCardDeleteIcon)
     }
@@ -237,11 +242,8 @@ export class TodoCard extends HTMLElement{
         })
         
     }
-    handleDeleteIconMouseOverEvent(){
-        this.className = 'delete'
-    }
-    handleDeleteIconMouseOutEvent(){
-        this.className = 'default'
+    setClassName(newClassName){
+        this.className = newClassName
     }
     destroy(){ 
         this.$main.handleDestroy(this)
@@ -254,7 +256,6 @@ export class TodoCard extends HTMLElement{
             const $newTodoCard = this.copySelf();
             this.$main.handleAppendChild(  $newTodoCard , this )
             this.$todoContainer.setFrom(this);
-            
         },250);
     }
     
