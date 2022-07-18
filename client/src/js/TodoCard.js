@@ -30,7 +30,7 @@ export class TodoCard extends HTMLElement{
             $el.renderDeleteIcon();
             $el.addEventListener('pointerdown', this.handleDefaultCardPointerDownEvent.bind(this))
             $el.addEventListener('pointerup', this.stopPointerDownEvent.bind(this))
-            $el.addEventListener('dblclick', this.handleDefaultCardDblclickEvent.bind(this) )//this.setTodoCardAttributes.bind(this,{state:'active'}))
+            $el.addEventListener('dblclick', this.handleDefaultCardDblclickEvent.bind(this) )
             $el.addEventListener('pointerout', this.stopPointerDownEvent.bind(this,'default'))
         },
         active : ($el) => { 
@@ -100,7 +100,6 @@ export class TodoCard extends HTMLElement{
             todoStateMapper[state](this)
         }
     }
-
 
     render(){
         this.innerHTML = ""
