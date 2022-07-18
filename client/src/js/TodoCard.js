@@ -173,10 +173,11 @@ export class TodoCard extends HTMLElement{
     }
     
     handleCencelButtonClickEvent(e){
-        if(!this.getAttribute('todoCardId')) return;
+
+        if(this.getAttribute('todoCardId') === 'undefined'){ 
+            return this.$section.removeChild(this)
+        }
         this.setTodoCardAttributes({state:'default'})
-        this.$section.removeChild(this)
-        
     }
    
 
