@@ -21,7 +21,6 @@ router.patch('/:id', (req, res, next) => {
     if( !id || ( !title && !contents )) return res.status(500).json({'message':'err'});
     updateTodo( id, updateData ).then( result => {
         req.data = result;
-        console.log(result)
         req.id = id
         req.move =  todoSectionId ? true : false
         next();
