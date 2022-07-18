@@ -3,8 +3,10 @@ const { getTodoById } = require('../repo/todoRepo')
 
 
 function createLog(req, res, next){
-    const id  =  req.id;
-    if(!id) return;
+    let id  =  req.id
+    if(!id) id = req.params.id
+    if(!id) return ;
+    if(req.logData) return next(); //delete 의 경우 로그를 먼저 만들어요
     getTodoById(id).then(todo => {
         const isArray = Array.isArray(todo)
         if(isArray && todo.length > 0){
