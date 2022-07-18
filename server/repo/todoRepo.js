@@ -6,6 +6,13 @@ function getTodo(){
     `)
 }
 
+function getTodoByTodoSectionId(todoSectionId){
+    return query(`
+        SELECT * FROM TodoCard WHERE todoSectionId = ${todoSectionId} ORDER BY id DESC; 
+    `)
+}
+
+
 function getTodoById(id){
     return query(`
     SELECT 
@@ -19,11 +26,6 @@ function getTodoById(id){
     WHERE TodoCard.id=${id} 
     `)
 } 
-function getTodosByTodoSectionId(todoSectionId){
-    return query(`
-        SELECT * FROM TodoCard WHERE todoSectionId = ${todoSectionId};
-    `)
-}
 
 function insertTodo(title, contents, todoSectionId) {
     return query(`
@@ -57,7 +59,7 @@ function deleteTodo(id) {
 module.exports = {
     getTodo,
     getTodoById,
-    getTodosByTodoSectionId,
+    getTodoByTodoSectionId,
     insertTodo,
     updateTodo,
     deleteTodo

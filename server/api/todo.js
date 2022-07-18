@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router();
-const { getTodoById, getTodosByTodoSectionId, insertTodo, updateTodo,  deleteTodo, getTodo} = require('../repo/todoRepo')
+const { getTodoById, getTodoByTodoSectionId, insertTodo, updateTodo,  deleteTodo, getTodo} = require('../repo/todoRepo')
 const {setLog} = require('../middleware/log')
 
 router.post('/', async (req, res, next) => {
@@ -43,13 +43,14 @@ router.patch('/:id/move', (req, res, next) => {
 },setLog)
 
 router.get('/', (req, res) => {
-    const { todoSectionId } = req.body;
-    if(!todoSectionId){
+ 
+    const { sectionId } = req.query;
+    if(!sectionId){
         getTodo().then( todo => {
             return res.status(200).json(todo)
         })
     }else{
-        getTodosByTodoSectionId(todoSectionId).then( todo => {
+        getTodoByTodoSectionId(sectionId).then( todo => {
             return res.status(200).json(todo)
         })
     }

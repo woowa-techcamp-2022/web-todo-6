@@ -1,15 +1,15 @@
 import { request } from "./config";
-export const requestGetTodoCard= () => {
+export const requestGetTodoCard= (sectionId) => {
     return new Promise((resolve, reject) => {
-        request.get('/todo').then( todoCard => {
+        request.get(`/todo?sectionId=${sectionId}`).then( todoCard => {
             return resolve(todoCard )
         })
     })
 }
 
-export const requestPostTodoCard = (title, contents,todoSectionId ) => {
+export const requestPostTodoCard = (title, contents,sectionId ) => {
     return new Promise((resolve, reject) => {
-        request.post('/todo',{title, contents, todoSectionId} ).then( todoCard => {
+        request.post('/todo',{title, contents, sectionId} ).then( todoCard => {
             return resolve(todoCard)
         })
     })

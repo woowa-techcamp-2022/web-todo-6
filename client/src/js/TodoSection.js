@@ -30,7 +30,8 @@ class TodoSection extends HTMLElement {
         this.loadTodoCard()
     }
     loadTodoCard(){
-        requestGetTodoCard().then( (todoCardData) => {
+        const sectionId = this.getAttribute('sectionId')
+        requestGetTodoCard(sectionId).then( (todoCardData) => {
             
             const cards = this.createTodoCardElements(todoCardData)
             this.$todoMain.sections.then(sections => {
@@ -49,11 +50,9 @@ class TodoSection extends HTMLElement {
     createTodoCardElements(todoCards){
         const todoCardElements = [];
         todoCards.forEach( todoCard => {
-            const { id, title, contents, todoSectionId } = todoCard;
-            if( parseInt(todoSectionId) === parseInt(this.getAttribute('sectionId'))){
-                const $todoCard = new TodoCard('default', title, contents, id)
-                todoCardElements.push($todoCard)
-            }
+            const { id, title, contents} = todoCard;
+            const $todoCard = new TodoCard('default', title, contents, id)
+            todoCardElements.push($todoCard) 
         });
         return todoCardElements;
     }
